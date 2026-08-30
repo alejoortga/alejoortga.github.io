@@ -1,0 +1,271 @@
+/* ---------------------------------------------------------------
+   alejoortga.com
+   Sin dependencias externas: no hay fuentes ni scripts de terceros.
+   Carga instantánea, cero rastreadores, funciona en cualquier hosting.
+   --------------------------------------------------------------- */
+
+:root {
+  --fondo:        #fbfaf8;
+  --fondo-sutil:  #f2f0ec;
+  --texto:        #17171a;
+  --texto-suave:  #5f5f66;
+  --texto-tenue:  #8a8a92;
+  --borde:        #e3e0da;
+  --acento:       #1c5f52;
+
+  --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+           "Helvetica Neue", Arial, sans-serif;
+
+  --ancho: 40rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo:        #121214;
+    --fondo-sutil:  #1b1b1e;
+    --texto:        #eceae5;
+    --texto-suave:  #a3a29c;
+    --texto-tenue:  #767570;
+    --borde:        #2b2b2f;
+    --acento:       #6fc9b4;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Accesibilidad ------------------------------------------------ */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--texto);
+  color: var(--fondo);
+  padding: 0.6rem 1rem;
+  z-index: 10;
+}
+.skip:focus { left: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --- Estructura --------------------------------------------------- */
+
+main {
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 11vw, 7rem) 1.5rem 0;
+}
+
+.bloque {
+  margin-top: clamp(3rem, 8vw, 4.5rem);
+}
+
+/* --- Portada ------------------------------------------------------ */
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.tagline {
+  font-size: 1.0625rem;
+  color: var(--texto-suave);
+  margin: 0.75rem 0 0;
+}
+
+.intro {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin: 1.75rem 0 0;
+  max-width: 34rem;
+}
+
+/* --- Enlaces de la portada ---------------------------------------- */
+
+.links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding: 0;
+  margin: 2rem 0 0;
+  font-size: 0.9375rem;
+}
+
+.links a {
+  color: var(--texto-suave);
+  text-decoration: none;
+  border-bottom: 1px solid var(--borde);
+  padding-bottom: 1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.links a:hover {
+  color: var(--acento);
+  border-bottom-color: var(--acento);
+}
+
+/* --- Títulos de sección ------------------------------------------- */
+
+h2 {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--texto-tenue);
+  margin: 0 0 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* --- Proyectos ---------------------------------------------------- */
+
+.proyectos,
+.experiencia {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.proyecto,
+.puesto {
+  margin-bottom: 2.25rem;
+}
+
+.proyecto:last-child,
+.puesto:last-child {
+  margin-bottom: 0;
+}
+
+.proyecto p,
+.puesto p {
+  margin: 0.4rem 0 0;
+  color: var(--texto-suave);
+}
+
+.proyecto h3 a {
+  color: var(--texto);
+  text-decoration: none;
+  background-image: linear-gradient(var(--acento), var(--acento));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s ease, color 0.15s ease;
+}
+
+.proyecto h3 a:hover {
+  color: var(--acento);
+  background-size: 100% 1px;
+}
+
+.meta {
+  font-size: 0.875rem;
+  color: var(--texto-tenue) !important;
+  margin-top: 0.5rem !important;
+}
+
+/* --- Experiencia -------------------------------------------------- */
+
+.puesto-cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.periodo {
+  font-size: 0.875rem;
+  color: var(--texto-tenue);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.empresa {
+  font-size: 0.9375rem;
+  margin-top: 0.15rem !important;
+}
+
+/* --- Texto corrido ------------------------------------------------ */
+
+.bloque > p {
+  margin: 0;
+  max-width: 34rem;
+}
+
+.bloque a:not(.proyecto h3 a) {
+  color: var(--acento);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--acento) 35%, transparent);
+  transition: border-color 0.15s ease;
+}
+
+.bloque a:not(.proyecto h3 a):hover {
+  border-bottom-color: var(--acento);
+}
+
+/* --- Pie ---------------------------------------------------------- */
+
+footer {
+  max-width: var(--ancho);
+  margin: clamp(4rem, 10vw, 6rem) auto 0;
+  padding: 1.75rem 1.5rem clamp(3rem, 8vw, 4rem);
+  border-top: 1px solid var(--borde);
+  font-size: 0.875rem;
+  color: var(--texto-tenue);
+}
+
+footer p { margin: 0; }
+
+/* --- Impresión (para "Guardar como PDF" = tu CV) ------------------- */
+
+@media print {
+  :root {
+    --fondo: #fff;
+    --texto: #000;
+    --texto-suave: #333;
+    --texto-tenue: #555;
+    --borde: #ccc;
+    --acento: #000;
+  }
+  .skip, .links a { border: 0; }
+  main { padding-top: 0; }
+  a { color: #000 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
