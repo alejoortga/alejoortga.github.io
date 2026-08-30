@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Alejo Ortega</title>
-<meta name="description" content="[Una frase que describa quién eres y qué haces. Máx. 155 caracteres — esto es lo que sale en Google.]">
+<title>ALEJANDRO ORTEGA</title>
+<meta name="description" content="Alejandro Ortega — sitio personal.">
 <link rel="canonical" href="https://alejoortga.com/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alejoortga.com/">
-<meta property="og:title" content="Alejo Ortega">
-<meta property="og:description" content="[La misma frase de arriba.]">
+<meta property="og:title" content="ALEJANDRO ORTEGA">
+<meta property="og:description" content="Alejandro Ortega — sitio personal.">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#000000">
@@ -27,9 +27,7 @@
 </head>
 
 <body>
-<a class="skip" href="#contenido">Saltar al contenido</a>
 
-<!-- Reloj: hora local -->
 <div class="reloj" aria-hidden="true">
   <span class="reloj-linea">
     <span class="punto"></span>
@@ -38,102 +36,17 @@
   <span class="zona" id="zona"></span>
 </div>
 
-<main id="contenido" class="contenedor">
-
-  <!-- ---------- Portada ---------- -->
-  <header class="portada">
-    <h1 class="portada-titulo">
-      [Una o dos líneas que digan qué haces y para quién. Es lo primero
-      y lo más importante que se lee — escríbela como se la dirías a
-      alguien en persona.]
-    </h1>
-    <p class="portada-cita">
-      [Una frase más corta que te represente: una idea en la que crees,
-      una forma de trabajar, algo que te importa.]
-    </p>
-  </header>
-
-  <!-- ---------- Secciones ---------- -->
-
-  <section class="fila" id="hago">
-    <h2 class="etiqueta">Qué hago</h2>
-    <div class="texto">
-      <p>[Explica tu trabajo en dos o tres frases. Concreto: qué problemas
-      resuelves y cómo. Evita "apasionado por" y los adjetivos de relleno.]</p>
-    </div>
-  </section>
-
-  <section class="fila" id="ofrezco">
-    <h2 class="etiqueta">Qué ofrezco</h2>
-    <div class="texto">
-      <ol class="servicios" role="list">
-        <li>
-          <h3>[Servicio uno]</h3>
-          <p>[Qué incluye y para quién es. Una o dos frases.]</p>
-        </li>
-        <li>
-          <h3>[Servicio dos]</h3>
-          <p>[Qué incluye y para quién es.]</p>
-        </li>
-        <li>
-          <h3>[Servicio tres]</h3>
-          <p>[Qué incluye y para quién es.]</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="fila" id="sobre-mi">
-    <h2 class="etiqueta">Sobre mí</h2>
-    <div class="texto">
-      <p>[Tu historia en tres o cuatro frases. De dónde vienes, cómo llegaste
-      a lo que haces hoy, qué te mueve. Aquí sí puedes ser personal — es la
-      parte que hace que alguien te recuerde.]</p>
-    </div>
-  </section>
-
-  <section class="fila" id="enfoque">
-    <h2 class="etiqueta">Enfoque</h2>
-    <div class="texto">
-      <p class="lista-barras">[Palabra clave] / [Palabra clave] / [Palabra clave]
-      / [Palabra clave] / [Palabra clave]</p>
-    </div>
-  </section>
-
-  <section class="fila" id="contacto">
-    <h2 class="etiqueta">Contacto</h2>
-    <div class="texto">
-      <p>La forma más rápida es por correo.</p>
-      <ul class="enlaces" role="list">
-        <li><a href="mailto:calejo.ortega@gmail.com">calejo.ortega@gmail.com</a></li>
-        <li><a href="https://github.com/alejoortga" rel="me noopener">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/[tu-usuario]" rel="me noopener">LinkedIn</a></li>
-      </ul>
-    </div>
-  </section>
-
-  <footer class="pie">
-    <p>© <span id="anio">2026</span> Alejo Ortega</p>
-  </footer>
-
+<main class="escena">
+  <h1 class="nombre">Alejandro Ortega</h1>
 </main>
 
-<!-- ---------- Navegación flotante ---------- -->
-<nav class="nav" aria-label="Secciones">
-  <span class="nav-marca" aria-hidden="true">A</span>
-  <ul role="list">
-    <li><a href="#hago">Qué hago</a></li>
-    <li><a href="#ofrezco">Qué ofrezco</a></li>
-    <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-</nav>
+<footer class="pie">
+  <p>© <span id="anio">2026</span> Alejandro Ortega</p>
+</footer>
 
 <script>
-  // ---- Cambia estas dos líneas por tu ciudad y zona horaria ----
   const ZONA_HORARIA = 'America/Bogota';
-  const CIUDAD = '[TU CIUDAD]';
-  // --------------------------------------------------------------
+  const CIUDAD = 'BOGOTÁ';
 
   document.getElementById('anio').textContent = new Date().getFullYear();
 
@@ -160,23 +73,6 @@
   elZona.textContent = '(' + desfase() + ') ' + CIUDAD;
   tic();
   setInterval(tic, 1000);
-
-  // Resalta en la navegación la sección visible
-  const enlaces = [...document.querySelectorAll('.nav a')];
-  const secciones = enlaces
-    .map(a => document.querySelector(a.getAttribute('href')))
-    .filter(Boolean);
-
-  if ('IntersectionObserver' in window) {
-    const observador = new IntersectionObserver(entradas => {
-      entradas.forEach(e => {
-        if (!e.isIntersecting) return;
-        enlaces.forEach(a => a.classList.toggle(
-          'activo', a.getAttribute('href') === '#' + e.target.id));
-      });
-    }, { rootMargin: '-45% 0px -45% 0px' });
-    secciones.forEach(s => observador.observe(s));
-  }
 </script>
 </body>
 </html>
