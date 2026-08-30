@@ -14,97 +14,169 @@
 <meta property="og:description" content="[La misma frase de arriba.]">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#000000">
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..500;1,8..60,300..500&display=swap">
+
 <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
 
-<main id="contenido">
+<!-- Reloj: hora local -->
+<div class="reloj" aria-hidden="true">
+  <span class="reloj-linea">
+    <span class="punto"></span>
+    <span class="hora" id="hora">--:--:--</span>
+  </span>
+  <span class="zona" id="zona"></span>
+</div>
 
-  <header class="hero">
-    <h1>Alejo Ortega</h1>
-    <p class="tagline">[Tu profesión o titular — ej. Ingeniero de software. Bogotá, Colombia.]</p>
-    <p class="intro">
-      [Dos o tres frases sobre ti. Qué haces, qué te interesa, qué estás
-      construyendo ahora mismo. Escribe como hablas: sin corporativismo,
-      sin "profesional apasionado por". Esto es lo único que casi todos van a leer.]
+<main id="contenido" class="contenedor">
+
+  <!-- ---------- Portada ---------- -->
+  <header class="portada">
+    <h1 class="portada-titulo">
+      [Una o dos líneas que digan qué haces y para quién. Es lo primero
+      y lo más importante que se lee — escríbela como se la dirías a
+      alguien en persona.]
+    </h1>
+    <p class="portada-cita">
+      [Una frase más corta que te represente: una idea en la que crees,
+      una forma de trabajar, algo que te importa.]
     </p>
-    <ul class="links" role="list">
-      <li><a href="mailto:calejo.ortega@gmail.com">Correo</a></li>
-      <li><a href="https://github.com/alejoortga" rel="me noopener">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/[tu-usuario]" rel="me noopener">LinkedIn</a></li>
-    </ul>
   </header>
 
-  <section class="bloque">
-    <h2>Proyectos</h2>
-    <ol class="proyectos" role="list">
+  <!-- ---------- Secciones ---------- -->
 
-      <li class="proyecto">
-        <h3><a href="[https://enlace-al-proyecto.com]">[Nombre del proyecto]</a></h3>
-        <p>[Qué es y por qué existe, en una o dos frases. Concreto, no abstracto.]</p>
-        <p class="meta">[2026] · [Tecnología, rol o contexto]</p>
-      </li>
-
-      <li class="proyecto">
-        <h3><a href="[https://enlace-al-proyecto.com]">[Nombre del proyecto]</a></h3>
-        <p>[Qué es y por qué existe, en una o dos frases.]</p>
-        <p class="meta">[2025] · [Tecnología, rol o contexto]</p>
-      </li>
-
-      <li class="proyecto">
-        <h3>[Proyecto sin enlace público]</h3>
-        <p>[Si no hay link, igual sirve. Borra el &lt;a&gt; y deja el título en texto.]</p>
-        <p class="meta">[2025] · [Contexto]</p>
-      </li>
-
-    </ol>
+  <section class="fila" id="hago">
+    <h2 class="etiqueta">Qué hago</h2>
+    <div class="texto">
+      <p>[Explica tu trabajo en dos o tres frases. Concreto: qué problemas
+      resuelves y cómo. Evita "apasionado por" y los adjetivos de relleno.]</p>
+    </div>
   </section>
 
-  <section class="bloque">
-    <h2>Experiencia</h2>
-    <ol class="experiencia" role="list">
-
-      <li class="puesto">
-        <div class="puesto-cabeza">
-          <h3>[Cargo]</h3>
-          <span class="periodo">[2024 — hoy]</span>
-        </div>
-        <p class="empresa">[Empresa o proyecto propio]</p>
-        <p>[Una frase sobre qué haces ahí. Opcional — puedes borrar este párrafo.]</p>
-      </li>
-
-      <li class="puesto">
-        <div class="puesto-cabeza">
-          <h3>[Cargo anterior]</h3>
-          <span class="periodo">[2022 — 2024]</span>
-        </div>
-        <p class="empresa">[Empresa]</p>
-      </li>
-
-    </ol>
+  <section class="fila" id="ofrezco">
+    <h2 class="etiqueta">Qué ofrezco</h2>
+    <div class="texto">
+      <ol class="servicios" role="list">
+        <li>
+          <h3>[Servicio uno]</h3>
+          <p>[Qué incluye y para quién es. Una o dos frases.]</p>
+        </li>
+        <li>
+          <h3>[Servicio dos]</h3>
+          <p>[Qué incluye y para quién es.]</p>
+        </li>
+        <li>
+          <h3>[Servicio tres]</h3>
+          <p>[Qué incluye y para quién es.]</p>
+        </li>
+      </ol>
+    </div>
   </section>
 
-  <section class="bloque">
-    <h2>Contacto</h2>
-    <p>
-      La forma más rápida es por correo:
-      <a href="mailto:calejo.ortega@gmail.com">calejo.ortega@gmail.com</a>.
-      Respondo casi siempre.
-    </p>
+  <section class="fila" id="sobre-mi">
+    <h2 class="etiqueta">Sobre mí</h2>
+    <div class="texto">
+      <p>[Tu historia en tres o cuatro frases. De dónde vienes, cómo llegaste
+      a lo que haces hoy, qué te mueve. Aquí sí puedes ser personal — es la
+      parte que hace que alguien te recuerde.]</p>
+    </div>
   </section>
+
+  <section class="fila" id="enfoque">
+    <h2 class="etiqueta">Enfoque</h2>
+    <div class="texto">
+      <p class="lista-barras">[Palabra clave] / [Palabra clave] / [Palabra clave]
+      / [Palabra clave] / [Palabra clave]</p>
+    </div>
+  </section>
+
+  <section class="fila" id="contacto">
+    <h2 class="etiqueta">Contacto</h2>
+    <div class="texto">
+      <p>La forma más rápida es por correo.</p>
+      <ul class="enlaces" role="list">
+        <li><a href="mailto:calejo.ortega@gmail.com">calejo.ortega@gmail.com</a></li>
+        <li><a href="https://github.com/alejoortga" rel="me noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/[tu-usuario]" rel="me noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <p>© <span id="anio">2026</span> Alejo Ortega</p>
+  </footer>
 
 </main>
 
-<footer>
-  <p>© <span id="anio">2026</span> Alejo Ortega</p>
-</footer>
+<!-- ---------- Navegación flotante ---------- -->
+<nav class="nav" aria-label="Secciones">
+  <span class="nav-marca" aria-hidden="true">A</span>
+  <ul role="list">
+    <li><a href="#hago">Qué hago</a></li>
+    <li><a href="#ofrezco">Qué ofrezco</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
 
 <script>
+  // ---- Cambia estas dos líneas por tu ciudad y zona horaria ----
+  const ZONA_HORARIA = 'America/Bogota';
+  const CIUDAD = '[TU CIUDAD]';
+  // --------------------------------------------------------------
+
   document.getElementById('anio').textContent = new Date().getFullYear();
+
+  const elHora = document.getElementById('hora');
+  const elZona = document.getElementById('zona');
+
+  const formato = new Intl.DateTimeFormat('es-CO', {
+    timeZone: ZONA_HORARIA, hour: '2-digit', minute: '2-digit',
+    second: '2-digit', hour12: true
+  });
+
+  function desfase() {
+    const ahora = new Date();
+    const local = new Date(ahora.toLocaleString('en-US', { timeZone: ZONA_HORARIA }));
+    const utc = new Date(ahora.toLocaleString('en-US', { timeZone: 'UTC' }));
+    const h = Math.round((local - utc) / 3600000);
+    return 'GMT' + (h >= 0 ? '+' : '') + h;
+  }
+
+  function tic() {
+    elHora.textContent = formato.format(new Date()).toUpperCase();
+  }
+
+  elZona.textContent = '(' + desfase() + ') ' + CIUDAD;
+  tic();
+  setInterval(tic, 1000);
+
+  // Resalta en la navegación la sección visible
+  const enlaces = [...document.querySelectorAll('.nav a')];
+  const secciones = enlaces
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window) {
+    const observador = new IntersectionObserver(entradas => {
+      entradas.forEach(e => {
+        if (!e.isIntersecting) return;
+        enlaces.forEach(a => a.classList.toggle(
+          'activo', a.getAttribute('href') === '#' + e.target.id));
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    secciones.forEach(s => observador.observe(s));
+  }
 </script>
 </body>
 </html>
