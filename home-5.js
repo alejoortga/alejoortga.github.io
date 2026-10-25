@@ -139,4 +139,18 @@
   } else {
     objetivos.forEach(el => el.classList.add('ya'));
   }
+
+  /* ---- La estrella de la lámina te mira ---- */
+  const iris = document.getElementById('iris');
+  const lamina = document.querySelector('.lamina-svg');
+  if (iris && lamina && puntero && !reducido) {
+    addEventListener('pointermove', e => {
+      const r = lamina.getBoundingClientRect();
+      const k = r.width / 1200;
+      const cx = r.left + 600 * k, cy = r.top + 478 * k;
+      const dx = e.clientX - cx, dy = e.clientY - cy, d = Math.hypot(dx, dy) || 1;
+      const m = Math.min(1, d / 400) * 22;
+      iris.style.transform = 'translate(' + (dx / d) * m + 'px,' + (dy / d) * m * 0.6 + 'px)';
+    }, { passive: true });
+  }
 })();

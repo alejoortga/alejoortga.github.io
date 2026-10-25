@@ -5,189 +5,276 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Alejandro Ortega — Apps para iPhone</title>
-<meta name="description" content="Alejandro Ortega — desarrollador de apps para iPhone: PicPoint, Manifesto y LIRVI.">
+<meta name="description" content="Alejandro Ortega, desarrollador de apps para iPhone en Bogotá. PicPoint, Manifesto y LIRVI.">
 <link rel="canonical" href="https://alejoortga.com/">
-
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alejoortga.com/">
 <meta property="og:title" content="Alejandro Ortega — Apps para iPhone">
-<meta property="og:description" content="PicPoint, Manifesto y LIRVI: apps hechas con cuidado para iPhone.">
-<meta property="og:locale" content="es_ES">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#000000">
-
+<meta property="og:description" content="Apps para iPhone desde Bogotá: PicPoint, Manifesto y LIRVI.">
+<meta name="theme-color" content="#e9e8e3">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..500;1,8..60,300..500&display=swap">
-
-<link rel="stylesheet" href="styles.css">
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;500;900&family=DM+Mono:wght@400;500&family=Pixelify+Sans:wght@400&display=swap">
+<link rel="stylesheet" href="home-5.css">
 </head>
-
 <body>
 
-<div class="reloj" aria-hidden="true">
-  <span class="reloj-linea">
-    <span class="punto"></span>
-    <span class="hora" id="hora">--:--:--</span>
-  </span>
-  <span class="zona" id="zona"></span>
+<!-- Mira: líneas de coordenadas que siguen al cursor -->
+<div class="mira" aria-hidden="true">
+  <i class="mira-x"></i><i class="mira-y"></i>
+  <b class="mira-dato" id="miraDato">X 0000 · Y 0000</b>
 </div>
 
-<header class="cabecera">
-  <a class="marca" href="#" aria-label="Alejandro Ortega">A</a>
-  <h1 class="nombre">Alejandro Ortega</h1>
-  <p class="sub" data-es="Apps para iPhone" data-en="iPhone apps">Apps para iPhone</p>
+<!-- Vista previa flotante de las apps -->
+<div class="vista" id="vista" aria-hidden="true"><img alt="" src=""></div>
 
-  <nav class="menu" aria-label="Principal">
-    <a href="#apps" data-es="Apps" data-en="Apps">Apps</a>
-    <a href="#about" data-es="Acerca de" data-en="About">Acerca de</a>
-    <span class="idiomas" role="group" aria-label="Idioma / Language">
-      <button type="button" data-lang="en">EN</button>
-      <button type="button" data-lang="es">ES</button>
-    </span>
+<!-- ============ Barra HUD ============ -->
+<header class="hud">
+  <a class="hud-marca" href="#top">
+    <span class="hud-punto"></span>
+    <span>ALEJANDRO ORTEGA</span>
+  </a>
+  <nav class="hud-nav" aria-label="Principal">
+    <a href="#obra"><span data-es="Apps" data-en="Apps">Apps</span></a>
+    <a href="#sobre"><span data-es="Sobre mí" data-en="About">Sobre mí</span></a>
+    <a href="#contacto"><span data-es="Contacto" data-en="Contact">Contacto</span></a>
   </nav>
+  <div class="hud-der">
+    <span class="hud-reloj"><span class="hud-punto"></span><span id="hora">--:--:--</span> <small>GMT−5</small></span>
+    <span class="idiomas" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button>
+    </span>
+  </div>
 </header>
 
-<main>
-  <section class="intro" id="apps">
-    <p data-es="Apps para iPhone hechas para recordar lo que importa, visualizar lo que quieres lograr y moverte con más claridad."
-       data-en="iPhone apps made to remember what matters, visualize what you want to achieve, and move with more clarity.">Apps para iPhone hechas para recordar lo que importa, visualizar lo que quieres lograr y moverte con más claridad.</p>
-    <p class="menor" data-es="Todas se diseñan y desarrollan de forma independiente, con la privacidad como punto de partida."
-       data-en="All are independently designed and built, with privacy as a starting point.">Todas se diseñan y desarrollan de forma independiente, con la privacidad como punto de partida.</p>
-  </section>
+<main id="top">
 
-  <section class="rejilla" aria-label="Apps">
+<!-- ============ Portada ============ -->
+<section class="hero">
+  <canvas class="campo" id="campo" aria-hidden="true"></canvas>
 
-    <a class="app app-picpoint" href="https://apps.apple.com/co/app/picpoint-save-find-nearby/id6474586111" target="_blank" rel="noopener">
-      <span class="visual" aria-hidden="true">
-        <img class="shot shot-a" src="img/picpoint-1.jpg" alt="" loading="lazy">
-      </span>
-      <span class="info">
-        <span class="app-cab">
-          <img class="icono" src="img/picpoint-icon.jpg" alt="" width="48" height="48">
-          <span>
-            <span class="app-nombre">PicPoint</span>
-            <span class="app-cat" data-es="Utilidades" data-en="Utilities">Utilidades</span>
-          </span>
-        </span>
-        <span class="app-lema" data-es="Captura, ubica, vuelve a encontrar." data-en="Capture, pin, revisit.">Captura, ubica, vuelve a encontrar.</span>
-        <span class="app-desc" data-es="Guarda productos y lugares con fotos, etiquetas y pines en el mapa. Redescúbrelos cuando estés cerca, con rutas y recordatorios." data-en="Save products and places with photos, smart labels, and map pins. Rediscover them when you are nearby, with routes and reminders.">Guarda productos y lugares con fotos, etiquetas y pines en el mapa. Redescúbrelos cuando estés cerca, con rutas y recordatorios.</span>
-        <span class="app-ir">App Store →</span>
-      </span>
-    </a>
+  <i class="marca m-tl" aria-hidden="true"></i><i class="marca m-tr" aria-hidden="true"></i>
+  <i class="marca m-bl" aria-hidden="true"></i><i class="marca m-br" aria-hidden="true"></i>
 
-    <a class="app app-manifesto" href="https://apps.apple.com/co/app/manifesto-vision-board-goals/id6756685162" target="_blank" rel="noopener">
-      <span class="visual" aria-hidden="true">
-        <img class="shot shot-a" src="img/manifesto-1.jpg" alt="" loading="lazy">
-      </span>
-      <span class="info">
-        <span class="app-cab">
-          <img class="icono" src="img/manifesto-icon.jpg" alt="" width="48" height="48">
-          <span>
-            <span class="app-nombre">Manifesto</span>
-            <span class="app-cat" data-es="Estilo de vida" data-en="Lifestyle">Estilo de vida</span>
-          </span>
-        </span>
-        <span class="app-lema" data-es="Tu vida soñada, hecha visible." data-en="Your dream life, made visible.">Tu vida soñada, hecha visible.</span>
-        <span class="app-desc" data-es="Crea tableros de visión con plantillas, stickers y texto para mantener tus metas cerca, claras e imposibles de ignorar." data-en="Create vision boards with templates, stickers, and text that keep your goals close, clear, and impossible to ignore.">Crea tableros de visión con plantillas, stickers y texto para mantener tus metas cerca, claras e imposibles de ignorar.</span>
-        <span class="app-ir">App Store →</span>
-      </span>
-    </a>
+  <div class="sol" id="sol" aria-hidden="true"></div>
 
-    <div class="app app-lirvi">
-      <span class="visual visual-lirvi" aria-hidden="true"><span class="wordmark">LIRVI</span></span>
-      <span class="info">
-        <span class="app-cab">
-          <span class="icono icono-lirvi" aria-hidden="true">L</span>
-          <span>
-            <span class="app-nombre">LIRVI</span>
-            <span class="app-cat" data-es="Próximamente" data-en="Coming soon">Próximamente</span>
-          </span>
-        </span>
-        <span class="app-lema" data-es="Algo nuevo está en camino." data-en="Something new is on the way.">Algo nuevo está en camino.</span>
-        <span class="app-desc" data-es="La próxima app. Pronto más detalles." data-en="The next app. More details soon.">La próxima app. Pronto más detalles.</span>
-        <span class="app-ir" aria-hidden="true">&nbsp;</span>
-      </span>
+  <p class="hero-etq">
+    <span>N°001</span>
+    <span data-es="Desarrollador de apps para iPhone" data-en="iPhone app developer">Desarrollador de apps para iPhone</span>
+  </p>
+
+  <h1 class="mega" aria-label="Alejandro Ortega">
+    <span class="mega-peq">ALEJANDRO</span>
+    <span class="mega-gr">ORTEGA</span>
+  </h1>
+
+  <p class="tate" aria-hidden="true" data-es="Apps, con cuidado." data-en="Apps, with care.">Apps, con cuidado.</p>
+
+  <div class="hero-pie">
+    <p class="lema" data-es="Apps que ayudan a recordar, visualizar y avanzar. Hechas a mano, sin recopilar tus datos."
+       data-en="Apps that help you remember, visualize, and move forward. Handmade, without collecting your data.">Apps que ayudan a recordar, visualizar y avanzar. Hechas a mano, sin recopilar tus datos.</p>
+    <a class="bajar" href="#obra"><span data-es="Ver las apps" data-en="See the apps">Ver las apps</span> <b>↓</b></a>
+  </div>
+</section>
+
+<!-- ============ Datos ============ -->
+<section class="datos" aria-label="Datos">
+  <dl>
+    <div><dt><span data-es="Ubicación" data-en="Location">Ubicación</span></dt><dd>BOGOTÁ, CO<small>4.7110°N 74.0721°W</small></dd></div>
+    <div><dt><span data-es="Apps" data-en="Apps">Apps</span></dt><dd class="num">03<small data-es="2 publicadas · 1 en camino" data-en="2 live · 1 on the way">2 publicadas · 1 en camino</small></dd></div>
+    <div><dt><span data-es="Plataforma" data-en="Platform">Plataforma</span></dt><dd>iOS · iPadOS<small data-es="Apps nativas" data-en="Native apps">Apps nativas</small></dd></div>
+    <div><dt><span data-es="Datos recopilados" data-en="Data collected">Datos recopilados</span></dt><dd class="num rojo">0<small data-es="Tu información es tuya" data-en="Your information is yours">Tu información es tuya</small></dd></div>
+  </dl>
+</section>
+
+<!-- ============ Índice de apps ============ -->
+<section class="obra" id="obra">
+  <header class="sec-cab">
+    <span class="sec-n">§01</span>
+    <h2><span data-es="Apps" data-en="Apps">Apps</span></h2>
+    <span class="sec-nota" data-es="Pasa el cursor sobre cada fila" data-en="Hover over each row">Pasa el cursor sobre cada fila</span>
+  </header>
+
+  <ol class="indice">
+    <li>
+      <a class="fila" href="https://apps.apple.com/co/app/picpoint-save-find-nearby/id6474586111" target="_blank" rel="noopener" data-img="img/picpoint-1.jpg">
+        <span class="f-n">01</span>
+        <span class="f-nom">PicPoint</span>
+        <span class="f-cat" data-es="Utilidades" data-en="Utilities">Utilidades</span>
+        <span class="f-desc" data-es="Guarda productos y lugares con fotos y pines en el mapa. Vuelve a encontrarlos cuando estés cerca."
+              data-en="Save products and places with photos and map pins. Find them again when you're nearby.">Guarda productos y lugares con fotos y pines en el mapa. Vuelve a encontrarlos cuando estés cerca.</span>
+        <span class="f-go">↗</span>
+        <img class="f-img" src="img/picpoint-1.jpg" alt="PicPoint" loading="lazy">
+      </a>
+    </li>
+    <li>
+      <a class="fila" href="https://apps.apple.com/co/app/manifesto-vision-board-goals/id6756685162" target="_blank" rel="noopener" data-img="img/manifesto-1.jpg">
+        <span class="f-n">02</span>
+        <span class="f-nom">Manifesto</span>
+        <span class="f-cat" data-es="Estilo de vida" data-en="Lifestyle">Estilo de vida</span>
+        <span class="f-desc" data-es="Tableros de visión con plantillas, stickers y texto. Tus metas, cerca y a la vista."
+              data-en="Vision boards with templates, stickers, and text. Your goals, close and in sight.">Tableros de visión con plantillas, stickers y texto. Tus metas, cerca y a la vista.</span>
+        <span class="f-go">↗</span>
+        <img class="f-img" src="img/manifesto-1.jpg" alt="Manifesto" loading="lazy">
+      </a>
+    </li>
+    <li>
+      <div class="fila fila-pronto">
+        <span class="f-n">03</span>
+        <span class="f-nom">LIRVI</span>
+        <span class="f-cat" data-es="Próximamente" data-en="Coming soon">Próximamente</span>
+        <span class="f-desc" data-es="La próxima app. Señal entrante…" data-en="The next app. Incoming signal…">La próxima app. Señal entrante…</span>
+        <span class="f-go señal" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ============ Cinta ============ -->
+<div class="cinta" aria-hidden="true">
+  <div class="cinta-pista">
+    <span>PICPOINT <b>◼</b> MANIFESTO <b>◼</b> LIRVI <b>◼</b> BOGOTÁ <b>◼</b> IPHONE <b>◼</b> PICPOINT <b>◼</b> MANIFESTO <b>◼</b> LIRVI <b>◼</b> BOGOTÁ <b>◼</b> IPHONE <b>◼</b> </span>
+    <span>PICPOINT <b>◼</b> MANIFESTO <b>◼</b> LIRVI <b>◼</b> BOGOTÁ <b>◼</b> IPHONE <b>◼</b> PICPOINT <b>◼</b> MANIFESTO <b>◼</b> LIRVI <b>◼</b> BOGOTÁ <b>◼</b> IPHONE <b>◼</b> </span>
+  </div>
+</div>
+
+<!-- ============ Lámina ============ -->
+<section class="lamina" id="lamina">
+  <header class="sec-cab">
+    <span class="sec-n">§02</span>
+    <h2><span data-es="Lámina" data-en="Plate">Lámina</span></h2>
+    <span class="sec-nota" data-es="Mueve el cursor: la estrella te mira" data-en="Move your cursor: the star is watching">Mueve el cursor: la estrella te mira</span>
+  </header>
+  <figure class="lamina-fig">
+    <svg class="lamina-svg" viewBox="0 0 1200 900" role="img" aria-label="Lámina decorativa: estrella con un ojo, sol y luna con rostro, barcos y olas, dentro de un marco ornamental">
+  <defs>
+    <pattern id="borde" width="90" height="90" patternUnits="userSpaceOnUse">
+      <rect width="90" height="90" fill="#1f1a4d"/>
+      <path d="M45,10 C64,28 64,62 45,80 C26,62 26,28 45,10Z" fill="#eadfc2" stroke="#15113a" stroke-width="2"/>
+      <path d="M45,24 C54,36 54,54 45,66 C36,54 36,36 45,24Z" fill="#3d8f8a"/>
+      <circle cx="45" cy="45" r="6" fill="#d0a850"/>
+      <circle cx="45" cy="5" r="4" fill="#d0a850"/><circle cx="45" cy="85" r="4" fill="#d0a850"/>
+    </pattern>
+    <linearGradient id="cielo-arco" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfc6ad"/><stop offset="0.55" stop-color="#eadfc2"/><stop offset="1" stop-color="#b9ad8c"/></linearGradient>
+    <radialGradient id="sol-g" cx="40%" cy="35%"><stop offset="0" stop-color="#f4dc93"/><stop offset="1" stop-color="#c79a3f"/></radialGradient>
+    <clipPath id="arco"><path d="M180,780 V430 C180,350 240,320 290,270 C350,215 380,170 450,140 C520,112 570,100 600,86 C630,100 680,112 750,140 C820,170 850,215 910,270 C960,320 1020,350 1020,430 V780 Z"/></clipPath>
+    <clipPath id="mitad"><rect x="600" y="150" width="400" height="700"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="900" fill="#15113a"/>
+  <rect x="90" y="90" width="1020" height="720" fill="#221c55"/>
+  <g fill="#d0a850" opacity="0.9" class="chispas"><path d="M748,125 Q748,130 753,130 Q748,130 748,135 Q748,130 743,130 Q748,130 748,125Z"/><path d="M468,120 Q468,126 474,126 Q468,126 468,132 Q468,126 462,126 Q468,126 468,120Z"/><path d="M178,124 Q178,134 188,134 Q178,134 178,144 Q178,134 168,134 Q178,134 178,124Z"/><path d="M681,117 Q681,127 691,127 Q681,127 681,137 Q681,127 671,127 Q681,127 681,117Z"/><path d="M656,136 Q656,146 666,146 Q656,146 656,156 Q656,146 646,146 Q656,146 656,136Z"/><path d="M647,122 Q647,127 652,127 Q647,127 647,132 Q647,127 642,127 Q647,127 647,122Z"/><path d="M793,120 Q793,128 801,128 Q793,128 793,136 Q793,128 785,128 Q793,128 793,120Z"/><path d="M132,229 Q132,235 138,235 Q132,235 132,241 Q132,235 126,235 Q132,235 132,229Z"/><path d="M382,137 Q382,147 392,147 Q382,147 382,157 Q382,147 372,147 Q382,147 382,137Z"/><path d="M977,363 Q977,369 983,369 Q977,369 977,375 Q977,369 971,369 Q977,369 977,363Z"/><path d="M755,107 Q755,113 761,113 Q755,113 755,119 Q755,113 749,113 Q755,113 755,107Z"/><path d="M367,101 Q367,111 377,111 Q367,111 367,121 Q367,111 357,111 Q367,111 367,101Z"/><path d="M422,139 Q422,144 427,144 Q422,144 422,149 Q422,144 417,144 Q422,144 422,139Z"/><path d="M711,123 Q711,129 717,129 Q711,129 711,135 Q711,129 705,129 Q711,129 711,123Z"/><path d="M467,133 Q467,143 477,143 Q467,143 467,153 Q467,143 457,143 Q467,143 467,133Z"/><path d="M584,128 Q584,133 589,133 Q584,133 584,138 Q584,133 579,133 Q584,133 584,128Z"/></g>
+
+  <!-- estrellas fugaces -->
+  <g stroke="#d0a850" stroke-linecap="round" fill="none">
+    <path d="M330,140 L190,230" stroke-width="3"/><path d="M420,170 L330,250" stroke-width="2"/><path d="M180,330 L118,372" stroke-width="2"/>
+  </g>
+
+  <!-- luna -->
+  <g class="luna">
+    <path d="M232,152 A62,62 0 1 0 292,222 A50,50 0 1 1 232,152Z" fill="#d0a850" stroke="#15113a" stroke-width="2.5"/>
+    <circle cx="244" cy="216" r="4" fill="#15113a"/><path d="M257,238 q8,6 16,-2" stroke="#15113a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- sol -->
+  <g class="sol-svg">
+    <g class="rayos" fill="#d0a850" stroke="#15113a" stroke-width="2"><path transform="rotate(0 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(20 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/><path transform="rotate(40 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(60 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/><path transform="rotate(80 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(100 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/><path transform="rotate(120 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(140 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/><path transform="rotate(160 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(180 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/><path transform="rotate(200 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(220 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/><path transform="rotate(240 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(260 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/><path transform="rotate(280 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(300 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/><path transform="rotate(320 1000 215)" d="M985,163 L1000,85 L1015,163 Z"/><path transform="rotate(340 1000 215)" d="M989,163 L1000,111 L1011,163 Z"/></g>
+    <circle cx="1000" cy="215" r="54" fill="url(#sol-g)" stroke="#15113a" stroke-width="2.5"/>
+    <path d="M976,205 q9,-7 18,0 M1008,205 q9,-7 18,0" stroke="#15113a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M1001,208 v18 q-5,4 -10,0" stroke="#15113a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="974" cy="228" r="9" fill="#eadfc2" opacity="0.85"/><circle cx="1028" cy="228" r="9" fill="#eadfc2" opacity="0.85"/>
+    <path d="M988,242 q12,9 24,0" stroke="#15113a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- arco -->
+  <path d="M180,780 V430 C180,350 240,320 290,270 C350,215 380,170 450,140 C520,112 570,100 600,86 C630,100 680,112 750,140 C820,170 850,215 910,270 C960,320 1020,350 1020,430 V780 Z" fill="url(#cielo-arco)" stroke="#15113a" stroke-width="4"/>
+
+  <g clip-path="url(#arco)">
+    <!-- nubes pintadas -->
+    <g fill="#fff8e4" opacity="0.5"><ellipse cx="330" cy="400" rx="120" ry="26"/><ellipse cx="880" cy="470" rx="110" ry="24"/><ellipse cx="300" cy="600" rx="100" ry="20"/></g>
+    <!-- estrella -->
+    <polygon points="600.0,180.0 669.4,384.5 885.3,387.3 712.2,516.5 776.3,722.7 600.0,598.0 423.7,722.7 487.8,516.5 314.7,387.3 530.6,384.5" fill="#2c2766" stroke="#15113a" stroke-width="4" stroke-linejoin="round"/>
+    <g clip-path="url(#mitad)"><polygon points="600.0,180.0 669.4,384.5 885.3,387.3 712.2,516.5 776.3,722.7 600.0,598.0 423.7,722.7 487.8,516.5 314.7,387.3 530.6,384.5" fill="#e9dcc0" stroke="#15113a" stroke-width="4" stroke-linejoin="round"/></g>
+    <polygon points="600.0,180.0 669.4,384.5 885.3,387.3 712.2,516.5 776.3,722.7 600.0,598.0 423.7,722.7 487.8,516.5 314.7,387.3 530.6,384.5" fill="none" stroke="#15113a" stroke-width="4" stroke-linejoin="round"/>
+    <!-- ojo -->
+    <path d="M488,478 C530,420 670,420 712,478 C670,536 530,536 488,478Z" fill="#fff8e4" stroke="#15113a" stroke-width="4"/>
+    <g id="iris"><circle id="pupila-base" cx="600" cy="478" r="36" fill="#221c55" stroke="#15113a" stroke-width="3"/>
+      <circle cx="600" cy="478" r="14" fill="#d0a850"/><circle cx="592" cy="470" r="5" fill="#fff8e4"/></g>
+    <path d="M478,440 C530,380 670,380 722,440" fill="none" stroke="#15113a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M500,414 C540,372 660,372 700,414" fill="none" stroke="#15113a" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M580,552 q20,18 40,0" stroke="#15113a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- aves -->
+    <g transform="translate(330 300) rotate(-8) scale(1.0 1.0)" class="ave"><path d="M-44,0 C-30,-26 -8,-30 4,-10 C14,-24 34,-22 46,-8 C34,-12 22,-6 12,6 C8,16 -2,18 -8,10 C-18,6 -32,4 -44,0Z" fill="#2c2766" stroke="#15113a" stroke-width="2"/><circle cx="-4" cy="-4" r="3" fill="#eadfc2"/></g><g transform="translate(860 320) rotate(10) scale(-0.85 0.85)" class="ave"><path d="M-44,0 C-30,-26 -8,-30 4,-10 C14,-24 34,-22 46,-8 C34,-12 22,-6 12,6 C8,16 -2,18 -8,10 C-18,6 -32,4 -44,0Z" fill="#2c2766" stroke="#15113a" stroke-width="2"/><circle cx="-4" cy="-4" r="3" fill="#eadfc2"/></g><g transform="translate(270 470) rotate(6) scale(0.8 0.8)" class="ave"><path d="M-44,0 C-30,-26 -8,-30 4,-10 C14,-24 34,-22 46,-8 C34,-12 22,-6 12,6 C8,16 -2,18 -8,10 C-18,6 -32,4 -44,0Z" fill="#2c2766" stroke="#15113a" stroke-width="2"/><circle cx="-4" cy="-4" r="3" fill="#eadfc2"/></g><g transform="translate(930 500) rotate(-6) scale(-0.75 0.75)" class="ave"><path d="M-44,0 C-30,-26 -8,-30 4,-10 C14,-24 34,-22 46,-8 C34,-12 22,-6 12,6 C8,16 -2,18 -8,10 C-18,6 -32,4 -44,0Z" fill="#2c2766" stroke="#15113a" stroke-width="2"/><circle cx="-4" cy="-4" r="3" fill="#eadfc2"/></g><g transform="translate(470 230) rotate(-12) scale(0.6 0.6)" class="ave"><path d="M-44,0 C-30,-26 -8,-30 4,-10 C14,-24 34,-22 46,-8 C34,-12 22,-6 12,6 C8,16 -2,18 -8,10 C-18,6 -32,4 -44,0Z" fill="#2c2766" stroke="#15113a" stroke-width="2"/><circle cx="-4" cy="-4" r="3" fill="#eadfc2"/></g><g transform="translate(740 210) rotate(12) scale(-0.6 0.6)" class="ave"><path d="M-44,0 C-30,-26 -8,-30 4,-10 C14,-24 34,-22 46,-8 C34,-12 22,-6 12,6 C8,16 -2,18 -8,10 C-18,6 -32,4 -44,0Z" fill="#2c2766" stroke="#15113a" stroke-width="2"/><circle cx="-4" cy="-4" r="3" fill="#eadfc2"/></g>
+    <!-- barcos y mar -->
+    <g class="barco" transform="translate(270 690) scale(0.95 0.95)"><path d="M-70,0 L70,0 L48,30 L-48,30 Z" fill="#15113a"/><path d="M-52,6 H52" stroke="#d0a850" stroke-width="3"/><g stroke="#15113a" stroke-width="3"><path d="M-34,0 V-110 M0,0 V-130 M34,0 V-100"/></g><g fill="#eadfc2" stroke="#15113a" stroke-width="2.5"><path d="M-34,-104 Q-72,-70 -62,-14 L-34,-14 Z"/><path d="M0,-124 Q-40,-80 -34,-14 L0,-14 Z"/><path d="M0,-124 Q42,-80 34,-14 L0,-14 Z"/><path d="M34,-94 Q70,-60 62,-14 L34,-14 Z"/></g></g><g class="barco" transform="translate(930 700) scale(-0.8 0.8)"><path d="M-70,0 L70,0 L48,30 L-48,30 Z" fill="#15113a"/><path d="M-52,6 H52" stroke="#d0a850" stroke-width="3"/><g stroke="#15113a" stroke-width="3"><path d="M-34,0 V-110 M0,0 V-130 M34,0 V-100"/></g><g fill="#eadfc2" stroke="#15113a" stroke-width="2.5"><path d="M-34,-104 Q-72,-70 -62,-14 L-34,-14 Z"/><path d="M0,-124 Q-40,-80 -34,-14 L0,-14 Z"/><path d="M0,-124 Q42,-80 34,-14 L0,-14 Z"/><path d="M34,-94 Q70,-60 62,-14 L34,-14 Z"/></g></g>
+    <path class="ola" style="animation-duration:9s" fill="#8f87b8" opacity="0.55" d="M-120,690 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 V830 H-120 Z"/><path class="ola" style="animation-duration:7s" fill="#39336f" opacity="1" d="M-120,722 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 V830 H-120 Z"/><path class="ola" style="animation-duration:11s" fill="#221c55" opacity="1" d="M-120,752 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 V830 H-120 Z"/><path class="ola" style="animation-duration:8s" fill="#15113a" opacity="1" d="M-120,782 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 q30,-26 60,0 t60,0 V830 H-120 Z"/>
+  </g>
+  <path d="M180,780 V430 C180,350 240,320 290,270 C350,215 380,170 450,140 C520,112 570,100 600,86 C630,100 680,112 750,140 C820,170 850,215 910,270 C960,320 1020,350 1020,430 V780" fill="none" stroke="#15113a" stroke-width="4"/>
+
+  <!-- marco -->
+  <rect x="0" y="0" width="1200" height="90" fill="url(#borde)"/><rect x="0" y="810" width="1200" height="90" fill="url(#borde)"/>
+  <rect x="0" y="90" width="90" height="720" fill="url(#borde)"/><rect x="1110" y="90" width="90" height="720" fill="url(#borde)"/>
+  <rect x="90" y="90" width="1020" height="720" fill="none" stroke="#d0a850" stroke-width="5"/>
+  <rect x="8" y="8" width="1184" height="884" fill="none" stroke="#d0a850" stroke-width="3"/>
+  <!-- placa -->
+  <g transform="translate(600 836)"><rect x="-118" y="-22" width="236" height="44" rx="6" fill="#eadfc2" stroke="#15113a" stroke-width="3"/>
+    <text x="0" y="6" text-anchor="middle" font-family="DM Mono, monospace" font-size="17" letter-spacing="3" fill="#15113a">BOGOTÁ · MMXXVI</text></g>
+</svg>
+    <figcaption>
+      <span>N.º 001</span>
+      <span data-es="Apps pequeñas, guiadas por las estrellas." data-en="Small apps, guided by the stars.">Apps pequeñas, guiadas por las estrellas.</span>
+      <span>Bogotá · MMXXVI</span>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ============ Sobre mí ============ -->
+<section class="sobre" id="sobre">
+  <header class="sec-cab">
+    <span class="sec-n">§03</span>
+    <h2><span data-es="Sobre mí" data-en="About">Sobre mí</span></h2>
+  </header>
+
+  <div class="sobre-cuerpo">
+    <p class="tate tate-gr" aria-hidden="true" data-es="Con cuidado." data-en="With care.">Con cuidado.</p>
+
+    <div class="sobre-texto">
+      <p class="grande" data-es="Soy Alejandro Ortega. Construyo apps para iPhone desde Bogotá, Colombia."
+         data-en="I'm Alejandro Ortega. I build iPhone apps from Bogotá, Colombia.">Soy Alejandro Ortega. Construyo apps para iPhone desde Bogotá, Colombia.</p>
+      <p data-es="Me interesan las herramientas pequeñas y bien cuidadas: las que te ayudan a recordar lo que importa, a ver con claridad lo que quieres lograr y a avanzar hacia ello. Cada app se diseña y se programa de principio a fin, con la privacidad como punto de partida."
+         data-en="I care about small, well-crafted tools: the ones that help you remember what matters, see clearly what you want to achieve, and move toward it. Every app is designed and built end to end, with privacy as the starting point.">Me interesan las herramientas pequeñas y bien cuidadas: las que te ayudan a recordar lo que importa, a ver con claridad lo que quieres lograr y a avanzar hacia ello. Cada app se diseña y se programa de principio a fin, con la privacidad como punto de partida.</p>
+
+      <div class="barras" aria-hidden="true"></div>
+      <p class="micro">ALEJANDRO ORTEGA · BOGOTÁ · 4.7110°N 74.0721°W · iOS</p>
     </div>
+  </div>
+</section>
 
-  </section>
+<!-- ============ Contacto ============ -->
+<section class="contacto" id="contacto">
+  <header class="sec-cab">
+    <span class="sec-n">§04</span>
+    <h2><span data-es="Contacto" data-en="Contact">Contacto</span></h2>
+  </header>
+  <a class="correo" href="mailto:calejo.ortega@gmail.com">calejo.ortega<wbr>@gmail.com <b>↗</b></a>
+  <ul class="redes" role="list">
+    <li><a href="https://github.com/alejoortga" rel="me noopener" target="_blank">GitHub ↗</a></li>
+    <li><a href="https://apps.apple.com/co/developer/cristian-alejandro-forero-ortega/id1722006655" rel="me noopener" target="_blank">App Store ↗</a></li>
+    <li><a href="/005/">005 ↗</a></li>
+  </ul>
+</section>
 
-  <section class="about" id="about">
-    <h2 class="etiqueta" data-es="Acerca de" data-en="About">Acerca de</h2>
-    <div class="about-texto">
-      <p data-es="Soy Alejandro Ortega, desarrollador de apps para iPhone desde Bogotá, Colombia. Construyo herramientas simples y cuidadas que ayudan a las personas a recordar, planear y avanzar hacia lo que quieren."
-         data-en="I'm Alejandro Ortega, an iPhone app developer based in Bogotá, Colombia. I build simple, carefully crafted tools that help people remember, plan, and move toward what they want.">Soy Alejandro Ortega, desarrollador de apps para iPhone desde Bogotá, Colombia. Construyo herramientas simples y cuidadas que ayudan a las personas a recordar, planear y avanzar hacia lo que quieren.</p>
-      <p data-es="Mis apps no recopilan datos personales: lo que guardas es tuyo."
-         data-en="My apps don't collect personal data: what you save is yours.">Mis apps no recopilan datos personales: lo que guardas es tuyo.</p>
-      <ul class="enlaces" role="list">
-        <li><a href="mailto:calejo.ortega@gmail.com">calejo.ortega@gmail.com</a></li>
-        <li><a href="https://github.com/alejoortga" rel="me noopener" target="_blank">GitHub</a></li>
-        <li><a href="https://apps.apple.com/co/developer/cristian-alejandro-forero-ortega/id1722006655" rel="me noopener" target="_blank">App Store</a></li>
-      </ul>
-    </div>
-  </section>
 </main>
 
 <footer class="pie">
-  <p>© <span id="anio">2026</span> Alejandro Ortega</p>
+  <span>© <span id="anio">2026</span> ALEJANDRO ORTEGA</span>
+  <span>BOGOTÁ, COLOMBIA</span>
+  <span id="coord">—</span>
 </footer>
 
-<script>
-  const ZONA_HORARIA = 'America/Bogota';
-  const CIUDAD = 'BOGOTÁ';
-
-  document.getElementById('anio').textContent = new Date().getFullYear();
-
-  /* ---- Idioma ---- */
-  const botones = [...document.querySelectorAll('[data-lang]')];
-  function idiomaInicial() {
-    try {
-      const g = localStorage.getItem('lang');
-      if (g === 'es' || g === 'en') return g;
-    } catch (e) {}
-    return (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
-  }
-  function poner(lang) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-es]').forEach(el => {
-      el.textContent = el.dataset[lang];
-    });
-    document.title = lang === 'en'
-      ? 'Alejandro Ortega — iPhone apps'
-      : 'Alejandro Ortega — Apps para iPhone';
-    botones.forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
-    try { localStorage.setItem('lang', lang); } catch (e) {}
-  }
-  botones.forEach(b => b.addEventListener('click', () => poner(b.dataset.lang)));
-  poner(idiomaInicial());
-
-  /* ---- Reloj ---- */
-  const elHora = document.getElementById('hora');
-  const elZona = document.getElementById('zona');
-
-  const formato = new Intl.DateTimeFormat('es-CO', {
-    timeZone: ZONA_HORARIA, hour: '2-digit', minute: '2-digit',
-    second: '2-digit', hour12: true
-  });
-
-  function desfase() {
-    const ahora = new Date();
-    const local = new Date(ahora.toLocaleString('en-US', { timeZone: ZONA_HORARIA }));
-    const utc = new Date(ahora.toLocaleString('en-US', { timeZone: 'UTC' }));
-    const h = Math.round((local - utc) / 3600000);
-    return 'GMT' + (h >= 0 ? '+' : '') + h;
-  }
-
-  function tic() {
-    elHora.textContent = formato.format(new Date()).toUpperCase();
-  }
-
-  elZona.textContent = '(' + desfase() + ') ' + CIUDAD;
-  tic();
-  setInterval(tic, 1000);
-</script>
+<script src="home-5.js"></script>
 </body>
 </html>

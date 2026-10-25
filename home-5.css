@@ -311,3 +311,26 @@ a.fila:hover .f-go { transform: translate(4px, -4px); color: var(--rojo); }
   html { scroll-behavior: auto; }
   .rev { opacity: 1; transform: none; }
 }
+
+
+/* --- Lámina (azulejo) --------------------------------------------- */
+
+.lamina { background: var(--papel); padding-bottom: 6rem; }
+.lamina-fig { margin: 0; padding: 0 var(--pad); display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 3fr); gap: 3rem; align-items: end; }
+.lamina-svg { display: block; width: 100%; height: auto; margin: 0; border: 1px solid var(--tinta); box-shadow: 10px 10px 0 var(--tinta); background: #15113a; }
+.lamina figcaption { display: flex; flex-direction: column; gap: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--linea); margin: 0; font: 400 0.6875rem/1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--gris); }
+.lamina .rayos { transform-origin: 1000px 215px; transform-box: view-box; animation: gira 60s linear infinite; }
+.lamina .chispas { animation: titila 5s ease-in-out infinite; }
+.lamina .luna { transform-origin: 250px 210px; transform-box: view-box; animation: mece 9s ease-in-out infinite; }
+.lamina .ola { animation: ola linear infinite; }
+.lamina .barco { animation: boya 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
+.lamina .ave { animation: aletea 4s ease-in-out infinite; }
+@keyframes gira { to { transform: rotate(360deg); } }
+@keyframes titila { 50% { opacity: 0.45; } }
+@keyframes mece { 50% { transform: rotate(5deg); } }
+@keyframes ola { to { transform: translateX(-120px); } }
+@keyframes boya { 50% { rotate: 2deg; translate: 0 4px; } }
+@keyframes aletea { 50% { translate: 0 -6px; } }
+@media (max-width: 64rem) { .lamina-fig { grid-template-columns: 1fr; gap: 1.5rem; } }
+@media (max-width: 44rem) { .lamina-svg { box-shadow: 5px 5px 0 var(--tinta); } }
+@media (prefers-reduced-motion: reduce) { .lamina * { animation: none !important; } }

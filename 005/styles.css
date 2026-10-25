@@ -1,0 +1,366 @@
+/* ---------------------------------------------------------------
+   alejoortga.com
+   Home: apps (PicPoint, Manifesto, LIRVI), Acerca de y hora de Bogotá.
+   Una sola fuente externa (Source Serif 4, licencia libre SIL OFL).
+   --------------------------------------------------------------- */
+
+:root {
+  --negro:      #000;
+  --t-nombre:   rgba(255, 255, 255, 0.92);
+  --t-etiqueta: rgba(255, 255, 255, 0.45);
+  --t-tenue:    rgba(255, 255, 255, 0.35);
+  --acento:     #ff4d3d;
+
+  --serif: "Source Serif 4", ui-serif, "Iowan Old Style", Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+           Roboto, Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--negro);
+  color: var(--t-etiqueta);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 4px;
+}
+
+/* --- Reloj -------------------------------------------------------- */
+
+.reloj {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.75rem;
+  z-index: 30;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--t-etiqueta);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.reloj-linea {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.reloj .punto {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--acento);
+  animation: latir 2.4s ease-in-out infinite;
+}
+
+@keyframes latir {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+
+.reloj .zona {
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t-tenue);
+}
+
+/* --- Cabecera ----------------------------------------------------- */
+
+html { scroll-behavior: smooth; }
+
+body { display: block; }
+
+.cabecera, .intro, .about {
+  width: min(100% - 3rem, 72rem);
+  margin-inline: auto;
+}
+
+.intro p, .about-texto p { max-width: 38rem; }
+
+.cabecera { padding-top: 4.5rem; }
+
+.marca {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background: var(--t-nombre);
+  color: #000;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.nombre {
+  margin: 1.1rem 0 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--t-nombre);
+}
+
+.sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--t-tenue);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+  font-size: 0.8125rem;
+}
+
+.menu a, .idiomas button {
+  color: var(--t-etiqueta);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.menu a:hover, .idiomas button:hover,
+.idiomas button[aria-pressed="true"] { color: var(--t-nombre); }
+
+.idiomas { margin-left: auto; display: inline-flex; gap: 0.75rem; }
+
+.idiomas button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+/* --- Intro -------------------------------------------------------- */
+
+.intro { margin-top: 3rem; scroll-margin-top: 2rem; }
+
+.intro p {
+  margin: 0 0 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--t-nombre);
+}
+
+.intro .menor { color: var(--t-etiqueta); font-size: 0.875rem; }
+
+/* --- Rejilla de apps ---------------------------------------------- */
+
+.rejilla {
+  width: min(100% - 3rem, 72rem);
+  margin: 3rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  color: var(--t-nombre);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.25rem;
+  background: #0d0d0d;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+a.app:hover { border-color: rgba(255, 255, 255, 0.22); transform: translateY(-3px); }
+
+.visual {
+  position: relative;
+  display: block;
+  height: 24rem;
+  overflow: hidden;
+  background: #151515;
+}
+
+.app-picpoint .visual { background: radial-gradient(circle at 50% 0, #3a2a28, #151515 70%); }
+.app-manifesto .visual { background: radial-gradient(circle at 50% 0, #3a3220, #151515 70%); }
+.visual-lirvi { background: radial-gradient(circle at 50% 0, #232c4a, #151515 70%); display: grid; place-items: center; }
+
+.shot {
+  position: absolute;
+  top: 2.25rem;
+  width: 52%;
+  border-radius: 1.4rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  transition: transform 0.5s ease;
+}
+.shot-a { left: 50%; margin-left: -29%; width: 58%; }
+a.app:hover .shot-a { transform: translateY(-6px); }
+
+.wordmark {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.app-cab { display: flex; align-items: center; gap: 0.9rem; }
+.app-cab > span { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.icono {
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  border-radius: 22%;
+  object-fit: cover;
+}
+
+.icono-lirvi {
+  display: grid;
+  place-items: center;
+  background: #1c2338;
+  color: var(--t-etiqueta);
+  font-family: var(--serif);
+  font-size: 1.4rem;
+}
+
+.app-nombre { font-family: var(--serif); font-size: 1.5rem; line-height: 1.1; }
+
+.app-cat {
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--t-tenue);
+}
+
+.app-lema { font-size: 0.9375rem; color: var(--t-nombre); margin-top: 0.4rem; }
+
+.app-desc { font-size: 0.8125rem; line-height: 1.6; color: var(--t-etiqueta); }
+
+.app-ir {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--t-tenue);
+  transition: color 0.2s;
+}
+a.app:hover .app-ir { color: var(--acento); }
+
+/* --- Acerca de ---------------------------------------------------- */
+
+.about {
+  margin-top: 5rem;
+  padding-bottom: 3rem;
+  scroll-margin-top: 2rem;
+}
+
+.etiqueta {
+  margin: 0 0 1.25rem;
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--t-tenue);
+}
+
+.about-texto p {
+  margin: 0 0 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--t-nombre);
+}
+
+.enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+
+.enlaces a {
+  color: var(--t-etiqueta);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-color: rgba(255, 255, 255, 0.25);
+}
+.enlaces a:hover { color: var(--acento); }
+
+/* --- Pie ---------------------------------------------------------- */
+
+.pie {
+  padding: 0 1.5rem 1.75rem;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--t-tenue);
+}
+
+.pie p { margin: 0; }
+
+/* --- Móvil -------------------------------------------------------- */
+
+@media (max-width: 56rem) {
+  .rejilla { grid-template-columns: 1fr; max-width: 28rem; }
+  .visual { height: 22rem; }
+}
+
+@media (max-width: 46rem) {
+  .reloj {
+    top: 1rem;
+    right: 1.25rem;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.05rem;
+    font-size: 0.75rem;
+  }
+  .cabecera { padding-top: 4rem; }
+}
+
+/* --- Impresión ---------------------------------------------------- */
+
+@media print {
+  .reloj { display: none !important; }
+  body { background: #fff; }
+  .nombre, .intro p, .about-texto p { color: #000; }
+  .pie { color: #444; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
