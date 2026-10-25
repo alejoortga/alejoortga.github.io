@@ -88,9 +88,11 @@ html { scroll-behavior: smooth; }
 body { display: block; }
 
 .cabecera, .intro, .about {
-  width: min(100% - 3rem, 44rem);
+  width: min(100% - 3rem, 72rem);
   margin-inline: auto;
 }
+
+.intro p, .about-texto p { max-width: 38rem; }
 
 .cabecera { padding-top: 4.5rem; }
 
@@ -169,86 +171,108 @@ body { display: block; }
 /* --- Rejilla de apps ---------------------------------------------- */
 
 .rejilla {
+  width: min(100% - 3rem, 72rem);
+  margin: 3rem auto 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  padding: 0.75rem;
-  margin-top: 2.5rem;
+  gap: 1.25rem;
 }
 
 .app {
-  position: relative;
-  isolation: isolate;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 34rem;
-  padding: 1.5rem;
-  overflow: hidden;
-  border-radius: 2px;
   color: var(--t-nombre);
   text-decoration: none;
-  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.25rem;
+  background: #0d0d0d;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s;
 }
 
-.app-fondo {
+a.app:hover { border-color: rgba(255, 255, 255, 0.22); transform: translateY(-3px); }
+
+.visual {
+  position: relative;
+  display: block;
+  height: 24rem;
+  overflow: hidden;
+  background: #151515;
+}
+
+.app-picpoint .visual { background: radial-gradient(circle at 50% 0, #3a2a28, #151515 70%); }
+.app-manifesto .visual { background: radial-gradient(circle at 50% 0, #3a3220, #151515 70%); }
+.visual-lirvi { background: radial-gradient(circle at 50% 0, #232c4a, #151515 70%); display: grid; place-items: center; }
+
+.shot {
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  transition: transform 0.6s ease;
+  top: 2.25rem;
+  width: 52%;
+  border-radius: 1.4rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  transition: transform 0.5s ease;
+}
+.shot-a { left: 50%; margin-left: -29%; width: 58%; }
+a.app:hover .shot-a { transform: translateY(-6px); }
+
+.wordmark {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: rgba(255, 255, 255, 0.55);
 }
 
-a.app:hover .app-fondo { transform: scale(1.04); }
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+  padding: 1.5rem;
+}
 
-.app-picpoint .app-fondo {
-  background:
-    radial-gradient(circle at 70% 25%, rgba(255, 77, 61, 0.55), transparent 55%),
-    linear-gradient(160deg, #2a0f0c, #0b0b0b 70%);
+.app-cab { display: flex; align-items: center; gap: 0.9rem; }
+.app-cab > span { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.icono {
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  border-radius: 22%;
+  object-fit: cover;
 }
-.app-manifesto .app-fondo {
-  background:
-    radial-gradient(circle at 25% 20%, rgba(240, 200, 120, 0.45), transparent 55%),
-    linear-gradient(160deg, #2b2312, #0b0b0b 70%);
+
+.icono-lirvi {
+  display: grid;
+  place-items: center;
+  background: #1c2338;
+  color: var(--t-etiqueta);
+  font-family: var(--serif);
+  font-size: 1.4rem;
 }
-.app-lirvi .app-fondo {
-  background:
-    radial-gradient(circle at 50% 30%, rgba(120, 150, 255, 0.35), transparent 55%),
-    linear-gradient(160deg, #101629, #0b0b0b 70%);
-}
+
+.app-nombre { font-family: var(--serif); font-size: 1.5rem; line-height: 1.1; }
 
 .app-cat {
   font-size: 0.625rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--t-etiqueta);
+  color: var(--t-tenue);
 }
 
-.app-pie { display: flex; flex-direction: column; gap: 0.6rem; }
+.app-lema { font-size: 0.9375rem; color: var(--t-nombre); margin-top: 0.4rem; }
 
-.app-nombre {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 2.6rem);
-  line-height: 1.05;
-  letter-spacing: 0.02em;
-}
-
-.app-lema { font-size: 0.9375rem; color: var(--t-nombre); }
-
-.app-desc {
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  color: var(--t-etiqueta);
-}
+.app-desc { font-size: 0.8125rem; line-height: 1.6; color: var(--t-etiqueta); }
 
 .app-ir {
-  margin-top: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.6rem;
   font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--t-tenue);
   transition: color 0.2s;
 }
-
 a.app:hover .app-ir { color: var(--acento); }
 
 /* --- Acerca de ---------------------------------------------------- */
@@ -308,8 +332,8 @@ a.app:hover .app-ir { color: var(--acento); }
 /* --- Móvil -------------------------------------------------------- */
 
 @media (max-width: 56rem) {
-  .rejilla { grid-template-columns: 1fr; padding-inline: 0; }
-  .app { min-height: 22rem; }
+  .rejilla { grid-template-columns: 1fr; max-width: 28rem; }
+  .visual { height: 22rem; }
 }
 
 @media (max-width: 46rem) {
@@ -322,7 +346,6 @@ a.app:hover .app-ir { color: var(--acento); }
     font-size: 0.75rem;
   }
   .cabecera { padding-top: 4rem; }
-  .rejilla { width: min(100% - 3rem, 44rem); margin-inline: auto; }
 }
 
 /* --- Impresión ---------------------------------------------------- */
