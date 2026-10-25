@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------
    alejoortga.com
-   Página mínima: el nombre y la hora local de Bogotá.
+   Home: apps (PicPoint, Manifesto, LIRVI), Acerca de y hora de Bogotá.
    Una sola fuente externa (Source Serif 4, licencia libre SIL OFL).
    --------------------------------------------------------------- */
 
@@ -81,29 +81,217 @@ body {
   color: var(--t-tenue);
 }
 
-/* --- El nombre ---------------------------------------------------- */
+/* --- Cabecera ----------------------------------------------------- */
 
-.escena {
-  flex: 1;
+html { scroll-behavior: smooth; }
+
+body { display: block; }
+
+.cabecera, .intro, .about {
+  width: min(100% - 3rem, 44rem);
+  margin-inline: auto;
+}
+
+.cabecera { padding-top: 4.5rem; }
+
+.marca {
   display: grid;
   place-items: center;
-  padding: 6rem 1.5rem 4rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background: var(--t-nombre);
+  color: #000;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  text-decoration: none;
 }
 
 .nombre {
-  margin: 0;
+  margin: 1.1rem 0 0;
   font-family: var(--serif);
   font-weight: 400;
-  text-transform: uppercase;
-  font-size: clamp(1.9rem, 8.5vw, 6rem);
-  line-height: 1.1;
-  letter-spacing: 0.07em;
-  /* compensa el espaciado final para que quede ópticamente centrado */
-  text-indent: 0.07em;
+  font-size: 1.5rem;
+  line-height: 1.2;
   color: var(--t-nombre);
-  text-align: center;
-  text-wrap: balance;
 }
+
+.sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--t-tenue);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+  font-size: 0.8125rem;
+}
+
+.menu a, .idiomas button {
+  color: var(--t-etiqueta);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.menu a:hover, .idiomas button:hover,
+.idiomas button[aria-pressed="true"] { color: var(--t-nombre); }
+
+.idiomas { margin-left: auto; display: inline-flex; gap: 0.75rem; }
+
+.idiomas button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+/* --- Intro -------------------------------------------------------- */
+
+.intro { margin-top: 3rem; scroll-margin-top: 2rem; }
+
+.intro p {
+  margin: 0 0 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--t-nombre);
+}
+
+.intro .menor { color: var(--t-etiqueta); font-size: 0.875rem; }
+
+/* --- Rejilla de apps ---------------------------------------------- */
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  padding: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.app {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 34rem;
+  padding: 1.5rem;
+  overflow: hidden;
+  border-radius: 2px;
+  color: var(--t-nombre);
+  text-decoration: none;
+  background: #111;
+}
+
+.app-fondo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition: transform 0.6s ease;
+}
+
+a.app:hover .app-fondo { transform: scale(1.04); }
+
+.app-picpoint .app-fondo {
+  background:
+    radial-gradient(circle at 70% 25%, rgba(255, 77, 61, 0.55), transparent 55%),
+    linear-gradient(160deg, #2a0f0c, #0b0b0b 70%);
+}
+.app-manifesto .app-fondo {
+  background:
+    radial-gradient(circle at 25% 20%, rgba(240, 200, 120, 0.45), transparent 55%),
+    linear-gradient(160deg, #2b2312, #0b0b0b 70%);
+}
+.app-lirvi .app-fondo {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(120, 150, 255, 0.35), transparent 55%),
+    linear-gradient(160deg, #101629, #0b0b0b 70%);
+}
+
+.app-cat {
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--t-etiqueta);
+}
+
+.app-pie { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.app-nombre {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+.app-lema { font-size: 0.9375rem; color: var(--t-nombre); }
+
+.app-desc {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--t-etiqueta);
+}
+
+.app-ir {
+  margin-top: 0.5rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--t-tenue);
+  transition: color 0.2s;
+}
+
+a.app:hover .app-ir { color: var(--acento); }
+
+/* --- Acerca de ---------------------------------------------------- */
+
+.about {
+  margin-top: 5rem;
+  padding-bottom: 3rem;
+  scroll-margin-top: 2rem;
+}
+
+.etiqueta {
+  margin: 0 0 1.25rem;
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--t-tenue);
+}
+
+.about-texto p {
+  margin: 0 0 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--t-nombre);
+}
+
+.enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+
+.enlaces a {
+  color: var(--t-etiqueta);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-color: rgba(255, 255, 255, 0.25);
+}
+.enlaces a:hover { color: var(--acento); }
 
 /* --- Pie ---------------------------------------------------------- */
 
@@ -119,6 +307,11 @@ body {
 
 /* --- Móvil -------------------------------------------------------- */
 
+@media (max-width: 56rem) {
+  .rejilla { grid-template-columns: 1fr; padding-inline: 0; }
+  .app { min-height: 22rem; }
+}
+
 @media (max-width: 46rem) {
   .reloj {
     top: 1rem;
@@ -128,10 +321,8 @@ body {
     gap: 0.05rem;
     font-size: 0.75rem;
   }
-
-  .escena { padding: 5rem 1.25rem 3rem; }
-
-  .nombre { letter-spacing: 0.05em; text-indent: 0.05em; }
+  .cabecera { padding-top: 4rem; }
+  .rejilla { width: min(100% - 3rem, 44rem); margin-inline: auto; }
 }
 
 /* --- Impresión ---------------------------------------------------- */
@@ -139,7 +330,7 @@ body {
 @media print {
   .reloj { display: none !important; }
   body { background: #fff; }
-  .nombre { color: #000; }
+  .nombre, .intro p, .about-texto p { color: #000; }
   .pie { color: #444; }
 }
 
