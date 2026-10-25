@@ -30,64 +30,28 @@
   const tic = () => { elHora.textContent = fmt.format(new Date()); };
   tic(); setInterval(tic, 1000);
 
-  /* ---- Cursor: brillo, orbes, sol y cartas ---- */
-  const brillo = document.getElementById('brillo');
-  const elCoord = document.getElementById('coord');
-  const sol = document.getElementById('sol');
-  const orbes = [...document.querySelectorAll('.hero .orbe')];
-  const cartas = [...document.querySelectorAll('a.carta')];
-  const pad = n => String(Math.round(n)).padStart(4, '0');
-
-  let mx = innerWidth / 2, my = innerHeight / 2, bx = mx, by = my;
-
+  /* ---- La O mira al cursor ---- */
+  const ojo = document.getElementById('ojo');
   if (puntero && !reducido) {
     addEventListener('pointermove', e => {
-      mx = e.clientX; my = e.clientY;
-      brillo.classList.add('on');
-      elCoord.textContent = 'X ' + pad(mx) + ' · Y ' + pad(my);
-
-      // el sol de la "O" mira hacia el cursor
-      const r = sol.getBoundingClientRect();
-      const gx = Math.max(15, Math.min(70, 50 + ((mx - (r.left + r.width / 2)) / innerWidth) * 90));
-      const gy = Math.max(15, Math.min(70, 50 + ((my - (r.top + r.height / 2)) / innerHeight) * 90));
-      sol.style.setProperty('--gx', gx + '%');
-      sol.style.setProperty('--gy', gy + '%');
-
-      // parallax suave de los orbes
-      orbes.forEach((o, i) => {
-        const k = (i + 1) * 14;
-        o.style.setProperty('--px', ((mx / innerWidth) - 0.5) * -k + 'px');
-        o.style.setProperty('--py', ((my / innerHeight) - 0.5) * -k + 'px');
-      });
+      const r = ojo.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + r.height / 2);
+      const d = Math.hypot(dx, dy) || 1;
+      const max = r.width * 0.2;
+      const k = Math.min(1, d / 300);
+      ojo.style.setProperty('--ex', (dx / d) * max * k + 'px');
+      ojo.style.setProperty('--ey', (dy / d) * max * k + 'px');
     }, { passive: true });
-    document.addEventListener('pointerleave', () => brillo.classList.remove('on'));
-
-    // inclinación de las cartas
-    cartas.forEach(c => {
-      const marco = c.querySelector('.carta-marco');
-      c.addEventListener('pointermove', e => {
-        const r = c.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        marco.style.transform = 'rotateX(' + (-y * 5) + 'deg) rotateY(' + (x * 6) + 'deg)';
-      });
-      c.addEventListener('pointerleave', () => { marco.style.transform = ''; });
-    });
-
-    (function bucle() {
-      bx += (mx - bx) * 0.12; by += (my - by) * 0.12;
-      brillo.style.transform = 'translate(' + bx + 'px,' + by + 'px)';
-      requestAnimationFrame(bucle);
-    })();
   }
 
   /* ---- Revelado al hacer scroll ---- */
-  const objetivos = document.querySelectorAll('.carta, .gran-orbe, .vacio-texto, .ficha, .sobre-texto, .correo, .redes');
+  const objetivos = document.querySelectorAll('.placa, .privado-frase, .privado-pie, .ficha, .sobre-texto, .correo, .redes');
   objetivos.forEach(el => el.classList.add('rev'));
   if ('IntersectionObserver' in window && !reducido) {
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('ya'); io.unobserve(e.target); }
-    }), { threshold: 0.12 });
+    }), { threshold: 0.1 });
     objetivos.forEach(el => io.observe(el));
   } else {
     objetivos.forEach(el => el.classList.add('ya'));
