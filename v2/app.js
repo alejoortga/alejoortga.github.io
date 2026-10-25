@@ -30,106 +30,59 @@
   const tic = () => { elHora.textContent = fmt.format(new Date()); };
   tic(); setInterval(tic, 1000);
 
-  /* ---- Coordenadas en el pie ---- */
+  /* ---- Cursor: brillo, orbes, sol y cartas ---- */
+  const brillo = document.getElementById('brillo');
   const elCoord = document.getElementById('coord');
+  const sol = document.getElementById('sol');
+  const orbes = [...document.querySelectorAll('.hero .orbe')];
+  const cartas = [...document.querySelectorAll('a.carta')];
   const pad = n => String(Math.round(n)).padStart(4, '0');
 
-  /* ---- Mira + sol + vista previa ---- */
-  const mira = document.querySelector('.mira');
-  const dato = document.getElementById('miraDato');
-  const sol = document.getElementById('sol');
-  const vista = document.getElementById('vista');
-  const vistaImg = vista.querySelector('img');
-  let mx = innerWidth / 2, my = innerHeight / 2;
-  let vx = mx, vy = my, vistaOn = false;
-  if (reducido) vista.remove();
+  let mx = innerWidth / 2, my = innerHeight / 2, bx = mx, by = my;
 
-  if (puntero) {
+  if (puntero && !reducido) {
     addEventListener('pointermove', e => {
       mx = e.clientX; my = e.clientY;
-      mira.classList.add('on');
-      mira.style.setProperty('--x', mx + 'px');
-      mira.style.setProperty('--y', my + 'px');
-      dato.textContent = 'X ' + pad(mx) + ' · Y ' + pad(my);
+      brillo.classList.add('on');
       elCoord.textContent = 'X ' + pad(mx) + ' · Y ' + pad(my);
-      if (!reducido) {
-        sol.style.setProperty('--sx', ((mx / innerWidth) - 0.5) * -40 + 'px');
-        sol.style.setProperty('--sy', ((my / innerHeight) - 0.5) * -40 + 'px');
-      }
-    }, { passive: true });
-    document.addEventListener('pointerleave', () => mira.classList.remove('on'));
 
-    document.querySelectorAll('a.fila').forEach(f => {
-      f.addEventListener('pointerenter', () => {
-        vistaImg.src = f.dataset.img;
-        vista.classList.add('on'); vistaOn = true;
+      // el sol de la "O" mira hacia el cursor
+      const r = sol.getBoundingClientRect();
+      const gx = Math.max(15, Math.min(70, 50 + ((mx - (r.left + r.width / 2)) / innerWidth) * 90));
+      const gy = Math.max(15, Math.min(70, 50 + ((my - (r.top + r.height / 2)) / innerHeight) * 90));
+      sol.style.setProperty('--gx', gx + '%');
+      sol.style.setProperty('--gy', gy + '%');
+
+      // parallax suave de los orbes
+      orbes.forEach((o, i) => {
+        const k = (i + 1) * 14;
+        o.style.setProperty('--px', ((mx / innerWidth) - 0.5) * -k + 'px');
+        o.style.setProperty('--py', ((my / innerHeight) - 0.5) * -k + 'px');
       });
-      f.addEventListener('pointerleave', () => { vista.classList.remove('on'); vistaOn = false; });
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => brillo.classList.remove('on'));
+
+    // inclinación de las cartas
+    cartas.forEach(c => {
+      const marco = c.querySelector('.carta-marco');
+      c.addEventListener('pointermove', e => {
+        const r = c.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        marco.style.transform = 'rotateX(' + (-y * 5) + 'deg) rotateY(' + (x * 6) + 'deg)';
+      });
+      c.addEventListener('pointerleave', () => { marco.style.transform = ''; });
     });
+
+    (function bucle() {
+      bx += (mx - bx) * 0.12; by += (my - by) * 0.12;
+      brillo.style.transform = 'translate(' + bx + 'px,' + by + 'px)';
+      requestAnimationFrame(bucle);
+    })();
   }
-
-  /* ---- Campo de puntos ---- */
-  const cv = document.getElementById('campo');
-  const cx = cv.getContext('2d');
-  const paso = 30;
-  let W = 0, H = 0, dpr = 1, visible = true;
-
-  function medir() {
-    dpr = Math.min(devicePixelRatio || 1, 2);
-    const r = cv.getBoundingClientRect();
-    W = r.width; H = r.height;
-    cv.width = W * dpr; cv.height = H * dpr;
-    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    dibujar(performance.now());
-  }
-
-  function dibujar(t) {
-    cx.clearRect(0, 0, W, H);
-    const r = cv.getBoundingClientRect();
-    const px = mx - r.left, py = my - r.top;
-    const radio = 190;
-    const cols = Math.ceil(W / paso) + 1, filas = Math.ceil(H / paso) + 1;
-    for (let j = 0; j < filas; j++) {
-      for (let i = 0; i < cols; i++) {
-        let x = i * paso + paso / 2, y = j * paso + paso / 2;
-        let rad = 1, c = 'rgba(11,11,13,0.28)';
-        if (puntero && !reducido) {
-          const dx = x - px, dy = y - py, d = Math.hypot(dx, dy);
-          if (d < radio) {
-            const k = 1 - d / radio;
-            x += (dx / (d || 1)) * k * 16;
-            y += (dy / (d || 1)) * k * 16;
-            rad = 1 + k * 3.2;
-            c = k > 0.55 ? '#ff3b1f' : 'rgba(11,11,13,0.8)';
-          }
-        }
-        if (!reducido) rad += Math.sin(t / 1400 + i * 0.35 + j * 0.25) * 0.25;
-        cx.fillStyle = c;
-        cx.beginPath(); cx.arc(x, y, Math.max(rad, 0.4), 0, 6.2832); cx.fill();
-      }
-    }
-  }
-
-  function bucle(t) {
-    if (visible) dibujar(t);
-    if (vistaOn || vista.classList.contains('on')) {
-      vx += (mx - vx) * 0.14; vy += (my - vy) * 0.14;
-      const w = vista.offsetWidth, h = vista.offsetHeight;
-      let x = vx + 28, y = vy - h / 2;
-      if (x + w > innerWidth - 12) x = vx - w - 28;
-      y = Math.max(56, Math.min(y, innerHeight - h - 12));
-      vista.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-    }
-    if (!reducido) requestAnimationFrame(bucle);
-  }
-
-  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(cv);
-  addEventListener('resize', medir);
-  medir();
-  requestAnimationFrame(bucle);
 
   /* ---- Revelado al hacer scroll ---- */
-  const objetivos = document.querySelectorAll('.datos dl > div, .indice li, .sobre-texto, .tate-gr, .correo, .redes');
+  const objetivos = document.querySelectorAll('.carta, .gran-orbe, .vacio-texto, .ficha, .sobre-texto, .correo, .redes');
   objetivos.forEach(el => el.classList.add('rev'));
   if ('IntersectionObserver' in window && !reducido) {
     const io = new IntersectionObserver(es => es.forEach(e => {

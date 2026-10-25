@@ -4,47 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Alejandro Ortega — アレハンドロ・オルテガ</title>
+<title>Alejandro Ortega — Apps para iPhone</title>
 <meta name="description" content="Alejandro Ortega, desarrollador de apps para iPhone en Bogotá. PicPoint, Manifesto y LIRVI.">
 <link rel="canonical" href="https://alejoortga.com/v2/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alejoortga.com/v2/">
-<meta property="og:title" content="Alejandro Ortega — アレハンドロ・オルテガ">
-<meta property="og:description" content="Apps para iPhone desde Bogotá: PicPoint, Manifesto y LIRVI.">
-<meta name="theme-color" content="#e9e8e3">
+<meta property="og:title" content="Alejandro Ortega — Apps para iPhone">
+<meta property="og:description" content="Apps pequeñas, hechas con cuidado, desde Bogotá: PicPoint, Manifesto y LIRVI.">
+<meta name="theme-color" content="#f6efd8">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@300;500;900&display=swap">
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Mira: líneas de coordenadas que siguen al cursor -->
-<div class="mira" aria-hidden="true">
-  <i class="mira-x"></i><i class="mira-y"></i>
-  <b class="mira-dato" id="miraDato">X 0000 · Y 0000</b>
-</div>
+<!-- Nube reutilizable -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="nubeG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffef6"/>
+      <stop offset="0.65" stop-color="#fff4c4"/>
+      <stop offset="1" stop-color="#ffe38a"/>
+    </linearGradient>
+    <filter id="suave" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.4"/></filter>
+    <symbol id="nube" viewBox="0 0 320 130">
+      <g fill="url(#nubeG)" filter="url(#suave)">
+        <circle cx="78" cy="86" r="40"/>
+        <circle cx="138" cy="58" r="52"/>
+        <circle cx="206" cy="72" r="44"/>
+        <circle cx="262" cy="94" r="30"/>
+        <rect x="48" y="84" width="240" height="40" rx="20"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
 
-<!-- Vista previa flotante de las apps -->
-<div class="vista" id="vista" aria-hidden="true"><img alt="" src=""></div>
+<!-- Brillo que sigue al cursor -->
+<div class="brillo" id="brillo" aria-hidden="true"></div>
 
-<!-- ============ Barra HUD ============ -->
-<header class="hud">
-  <a class="hud-marca" href="#top">
-    <span class="hud-punto"></span>
-    <span>ALEJANDRO ORTEGA</span>
-    <span class="ja" lang="ja">アレハンドロ・オルテガ</span>
-  </a>
-  <nav class="hud-nav" aria-label="Principal">
-    <a href="#obra"><span data-es="Apps" data-en="Apps">Apps</span><em lang="ja">作品</em></a>
-    <a href="#sobre"><span data-es="Sobre mí" data-en="About">Sobre mí</span><em lang="ja">私</em></a>
-    <a href="#contacto"><span data-es="Contacto" data-en="Contact">Contacto</span><em lang="ja">連絡</em></a>
+<!-- ============ Barra ============ -->
+<header class="barra">
+  <a class="barra-marca" href="#top"><i class="sol-mini"></i> Alejandro Ortega</a>
+  <nav class="barra-nav" aria-label="Principal">
+    <a href="#apps" data-es="Apps" data-en="Apps">Apps</a>
+    <a href="#sobre" data-es="Sobre mí" data-en="About">Sobre mí</a>
+    <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
   </nav>
-  <div class="hud-der">
-    <span class="hud-reloj"><span class="hud-punto"></span><span id="hora">--:--:--</span> <small>GMT−5</small></span>
+  <div class="barra-der">
+    <span class="reloj"><span id="hora">--:--:--</span> <small>Bogotá</small></span>
     <span class="idiomas" role="group" aria-label="Idioma / Language">
       <button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button>
     </span>
@@ -54,125 +65,148 @@
 <main id="top">
 
 <!-- ============ Portada ============ -->
-<section class="hero">
-  <canvas class="campo" id="campo" aria-hidden="true"></canvas>
+<section class="hero" id="hero">
+  <div class="cielo" aria-hidden="true">
+    <i class="orbe orbe-a"></i><i class="orbe orbe-b"></i><i class="orbe orbe-c"></i>
+    <svg class="nube n1" viewBox="0 0 320 130"><use href="#nube"/></svg>
+    <svg class="nube n2" viewBox="0 0 320 130"><use href="#nube"/></svg>
+    <svg class="nube n3" viewBox="0 0 320 130"><use href="#nube"/></svg>
+  </div>
 
-  <i class="marca m-tl" aria-hidden="true"></i><i class="marca m-tr" aria-hidden="true"></i>
-  <i class="marca m-bl" aria-hidden="true"></i><i class="marca m-br" aria-hidden="true"></i>
-
-  <div class="sol" id="sol" aria-hidden="true"></div>
-
-  <p class="hero-etq">
-    <span>N°001</span>
+  <p class="hero-ficha">
+    <span class="sello">N.º 001</span>
     <span data-es="Desarrollador de apps para iPhone" data-en="iPhone app developer">Desarrollador de apps para iPhone</span>
-    <span lang="ja">iPhoneアプリ開発者</span>
+    <span>Bogotá · 4.7110° N, 74.0721° O</span>
   </p>
 
-  <h1 class="mega" aria-label="Alejandro Ortega">
-    <span class="mega-peq">ALEJANDRO</span>
-    <span class="mega-gr">ORTEGA</span>
+  <h1 class="nombre" aria-label="Alejandro Ortega">
+    <span class="nombre-a" aria-hidden="true">Alejandro</span>
+    <span class="nombre-b" aria-hidden="true"><i class="o" id="sol"></i>rtega</span>
   </h1>
 
-  <p class="tate" lang="ja" aria-hidden="true">アプリを、つくる。</p>
-
   <div class="hero-pie">
-    <p class="lema" data-es="Apps que ayudan a recordar, visualizar y avanzar. Hechas a mano, sin recopilar tus datos."
-       data-en="Apps that help you remember, visualize, and move forward. Handmade, without collecting your data.">Apps que ayudan a recordar, visualizar y avanzar. Hechas a mano, sin recopilar tus datos.</p>
-    <a class="bajar" href="#obra"><span data-es="Ver las apps" data-en="See the apps">Ver las apps</span> <b>↓</b></a>
+    <p class="frase" data-es="Apps pequeñas, hechas con cuidado, para recordar lo que importa y avanzar hacia lo que quieres."
+       data-en="Small apps, made with care, to remember what matters and move toward what you want.">Apps pequeñas, hechas con cuidado, para recordar lo que importa y avanzar hacia lo que quieres.</p>
+    <a class="bajar" href="#apps"><span data-es="Ver las apps" data-en="See the apps">Ver las apps</span><b>↓</b></a>
   </div>
-</section>
-
-<!-- ============ Datos ============ -->
-<section class="datos" aria-label="Datos">
-  <dl>
-    <div><dt><span data-es="Ubicación" data-en="Location">Ubicación</span><em lang="ja">所在地</em></dt><dd>BOGOTÁ, CO<small>4.7110°N 74.0721°W</small></dd></div>
-    <div><dt><span data-es="Apps" data-en="Apps">Apps</span><em lang="ja">アプリ</em></dt><dd class="num">03<small data-es="2 publicadas · 1 en camino" data-en="2 live · 1 on the way">2 publicadas · 1 en camino</small></dd></div>
-    <div><dt><span data-es="Plataforma" data-en="Platform">Plataforma</span><em lang="ja">対応</em></dt><dd>iOS · iPadOS<small data-es="Apps nativas" data-en="Native apps">Apps nativas</small></dd></div>
-    <div><dt><span data-es="Datos recopilados" data-en="Data collected">Datos recopilados</span><em lang="ja">収集データ</em></dt><dd class="num rojo">0<small data-es="Tu información es tuya" data-en="Your information is yours">Tu información es tuya</small></dd></div>
-  </dl>
-</section>
-
-<!-- ============ Índice de apps ============ -->
-<section class="obra" id="obra">
-  <header class="sec-cab">
-    <span class="sec-n">§01</span>
-    <h2><span data-es="Apps" data-en="Apps">Apps</span> <em lang="ja">作品</em></h2>
-    <span class="sec-nota" data-es="Pasa el cursor sobre cada fila" data-en="Hover over each row">Pasa el cursor sobre cada fila</span>
-  </header>
-
-  <ol class="indice">
-    <li>
-      <a class="fila" href="https://apps.apple.com/co/app/picpoint-save-find-nearby/id6474586111" target="_blank" rel="noopener" data-img="../img/picpoint-1.jpg">
-        <span class="f-n">01</span>
-        <span class="f-ja" lang="ja">ピクポイント</span>
-        <span class="f-nom">PicPoint</span>
-        <span class="f-cat" data-es="Utilidades" data-en="Utilities">Utilidades</span>
-        <span class="f-desc" data-es="Guarda productos y lugares con fotos y pines en el mapa. Vuelve a encontrarlos cuando estés cerca."
-              data-en="Save products and places with photos and map pins. Find them again when you're nearby.">Guarda productos y lugares con fotos y pines en el mapa. Vuelve a encontrarlos cuando estés cerca.</span>
-        <span class="f-go">↗</span>
-        <img class="f-img" src="../img/picpoint-1.jpg" alt="PicPoint" loading="lazy">
-      </a>
-    </li>
-    <li>
-      <a class="fila" href="https://apps.apple.com/co/app/manifesto-vision-board-goals/id6756685162" target="_blank" rel="noopener" data-img="../img/manifesto-1.jpg">
-        <span class="f-n">02</span>
-        <span class="f-ja" lang="ja">マニフェスト</span>
-        <span class="f-nom">Manifesto</span>
-        <span class="f-cat" data-es="Estilo de vida" data-en="Lifestyle">Estilo de vida</span>
-        <span class="f-desc" data-es="Tableros de visión con plantillas, stickers y texto. Tus metas, cerca y a la vista."
-              data-en="Vision boards with templates, stickers, and text. Your goals, close and in sight.">Tableros de visión con plantillas, stickers y texto. Tus metas, cerca y a la vista.</span>
-        <span class="f-go">↗</span>
-        <img class="f-img" src="../img/manifesto-1.jpg" alt="Manifesto" loading="lazy">
-      </a>
-    </li>
-    <li>
-      <div class="fila fila-pronto">
-        <span class="f-n">03</span>
-        <span class="f-ja" lang="ja">リルビ</span>
-        <span class="f-nom">LIRVI</span>
-        <span class="f-cat" data-es="Próximamente" data-en="Coming soon">Próximamente</span>
-        <span class="f-desc" data-es="La próxima app. Señal entrante…" data-en="The next app. Incoming signal…">La próxima app. Señal entrante…</span>
-        <span class="f-go señal" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      </div>
-    </li>
-  </ol>
 </section>
 
 <!-- ============ Cinta ============ -->
 <div class="cinta" aria-hidden="true">
   <div class="cinta-pista">
-    <span>PICPOINT <b>◼</b> ピクポイント <b>◼</b> MANIFESTO <b>◼</b> マニフェスト <b>◼</b> LIRVI <b>◼</b> リルビ <b>◼</b> BOGOTÁ <b>◼</b> ボゴタ <b>◼</b> </span>
-    <span>PICPOINT <b>◼</b> ピクポイント <b>◼</b> MANIFESTO <b>◼</b> マニフェスト <b>◼</b> LIRVI <b>◼</b> リルビ <b>◼</b> BOGOTÁ <b>◼</b> ボゴタ <b>◼</b> </span>
+    <span>PicPoint <i></i> Manifesto <i></i> LIRVI <i></i> Bogotá <i></i> iPhone <i></i> PicPoint <i></i> Manifesto <i></i> LIRVI <i></i> Bogotá <i></i> iPhone <i></i></span>
+    <span>PicPoint <i></i> Manifesto <i></i> LIRVI <i></i> Bogotá <i></i> iPhone <i></i> PicPoint <i></i> Manifesto <i></i> LIRVI <i></i> Bogotá <i></i> iPhone <i></i></span>
   </div>
 </div>
 
+<!-- ============ Apps ============ -->
+<section class="apps" id="apps">
+  <header class="seccion-cab">
+    <p class="seccion-n">01</p>
+    <h2 data-es="Tres apps" data-en="Three apps">Tres apps</h2>
+    <p class="seccion-nota" data-es="Dos ya están en la App Store. La tercera viene en camino."
+       data-en="Two are on the App Store. The third is on its way.">Dos ya están en la App Store. La tercera viene en camino.</p>
+  </header>
+
+  <div class="cartas">
+
+    <a class="carta c-picpoint" href="https://apps.apple.com/co/app/picpoint-save-find-nearby/id6474586111" target="_blank" rel="noopener">
+      <span class="carta-marco">
+        <span class="carta-num">N.º 01</span>
+        <span class="carta-forma f1" aria-hidden="true"></span>
+        <span class="carta-forma f2" aria-hidden="true"></span>
+        <img class="carta-img" src="../img/picpoint-1.jpg" alt="Captura de PicPoint" loading="lazy">
+      </span>
+      <span class="carta-pie">
+        <span class="carta-nom">PicPoint</span>
+        <span class="carta-cat" data-es="Utilidades" data-en="Utilities">Utilidades</span>
+        <span class="carta-desc" data-es="Guarda productos y lugares con fotos y pines en el mapa. Vuelve a encontrarlos cuando estés cerca."
+              data-en="Save products and places with photos and map pins. Find them again when you're nearby.">Guarda productos y lugares con fotos y pines en el mapa. Vuelve a encontrarlos cuando estés cerca.</span>
+        <span class="carta-ir">App Store <b>↗</b></span>
+      </span>
+    </a>
+
+    <a class="carta c-manifesto" href="https://apps.apple.com/co/app/manifesto-vision-board-goals/id6756685162" target="_blank" rel="noopener">
+      <span class="carta-marco">
+        <span class="carta-num">N.º 02</span>
+        <span class="carta-forma f1" aria-hidden="true"></span>
+        <span class="carta-forma f2" aria-hidden="true"></span>
+        <img class="carta-img" src="../img/manifesto-1.jpg" alt="Captura de Manifesto" loading="lazy">
+      </span>
+      <span class="carta-pie">
+        <span class="carta-nom">Manifesto</span>
+        <span class="carta-cat" data-es="Estilo de vida" data-en="Lifestyle">Estilo de vida</span>
+        <span class="carta-desc" data-es="Tableros de visión con plantillas, stickers y texto. Tus metas, cerca y a la vista."
+              data-en="Vision boards with templates, stickers, and text. Your goals, close and in sight.">Tableros de visión con plantillas, stickers y texto. Tus metas, cerca y a la vista.</span>
+        <span class="carta-ir">App Store <b>↗</b></span>
+      </span>
+    </a>
+
+    <div class="carta c-lirvi">
+      <span class="carta-marco">
+        <span class="carta-num">N.º 03</span>
+        <span class="carta-forma f1" aria-hidden="true"></span>
+        <span class="carta-forma f2" aria-hidden="true"></span>
+        <span class="vacio" aria-hidden="true"><i></i></span>
+      </span>
+      <span class="carta-pie">
+        <span class="carta-nom">LIRVI</span>
+        <span class="carta-cat" data-es="Próximamente" data-en="Coming soon">Próximamente</span>
+        <span class="carta-desc" data-es="La próxima app. Todavía es un secreto."
+              data-en="The next app. Still a secret.">La próxima app. Todavía es un secreto.</span>
+        <span class="carta-ir carta-espera" data-es="En camino" data-en="On its way">En camino</span>
+      </span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ Espacio negativo ============ -->
+<section class="vacio-sec" aria-label="Privacidad">
+  <div class="gran-orbe" aria-hidden="true"><i></i><span class="cero">0</span></div>
+  <div class="vacio-texto">
+    <p class="vacio-etq" data-es="Datos recopilados" data-en="Data collected">Datos recopilados</p>
+    <p class="vacio-frase" data-es="Lo que guardas es tuyo." data-en="What you save is yours.">Lo que guardas es tuyo.</p>
+    <p class="vacio-nota" data-es="Mis apps no recopilan ningún dato personal. Menos ruido, más espacio para lo que importa."
+       data-en="My apps collect no personal data. Less noise, more room for what matters.">Mis apps no recopilan ningún dato personal. Menos ruido, más espacio para lo que importa.</p>
+  </div>
+</section>
+
 <!-- ============ Sobre mí ============ -->
 <section class="sobre" id="sobre">
-  <header class="sec-cab">
-    <span class="sec-n">§02</span>
-    <h2><span data-es="Sobre mí" data-en="About">Sobre mí</span> <em lang="ja">私について</em></h2>
+  <header class="seccion-cab">
+    <p class="seccion-n">02</p>
+    <h2 data-es="Sobre mí" data-en="About">Sobre mí</h2>
   </header>
 
   <div class="sobre-cuerpo">
-    <p class="tate tate-gr" lang="ja" aria-hidden="true">小さな道具を、丁寧に。</p>
+    <aside class="ficha" aria-label="Ficha">
+      <dl>
+        <div><dt data-es="Nombre" data-en="Name">Nombre</dt><dd>Alejandro Ortega</dd></div>
+        <div><dt data-es="Oficio" data-en="Craft">Oficio</dt><dd data-es="Apps para iPhone" data-en="iPhone apps">Apps para iPhone</dd></div>
+        <div><dt data-es="Lugar" data-en="Place">Lugar</dt><dd>Bogotá, Colombia</dd></div>
+        <div><dt data-es="Publicadas" data-en="Published">Publicadas</dt><dd>2 <small data-es="+ 1 en camino" data-en="+ 1 on the way">+ 1 en camino</small></dd></div>
+      </dl>
+    </aside>
 
     <div class="sobre-texto">
-      <p class="grande" data-es="Soy Alejandro Ortega. Construyo apps para iPhone desde Bogotá, Colombia."
+      <p class="cita" data-es="Soy Alejandro Ortega. Construyo apps para iPhone desde Bogotá, Colombia."
          data-en="I'm Alejandro Ortega. I build iPhone apps from Bogotá, Colombia.">Soy Alejandro Ortega. Construyo apps para iPhone desde Bogotá, Colombia.</p>
       <p data-es="Me interesan las herramientas pequeñas y bien cuidadas: las que te ayudan a recordar lo que importa, a ver con claridad lo que quieres lograr y a avanzar hacia ello. Cada app se diseña y se programa de principio a fin, con la privacidad como punto de partida."
          data-en="I care about small, well-crafted tools: the ones that help you remember what matters, see clearly what you want to achieve, and move toward it. Every app is designed and built end to end, with privacy as the starting point.">Me interesan las herramientas pequeñas y bien cuidadas: las que te ayudan a recordar lo que importa, a ver con claridad lo que quieres lograr y a avanzar hacia ello. Cada app se diseña y se programa de principio a fin, con la privacidad como punto de partida.</p>
-
-      <div class="barras" aria-hidden="true"></div>
-      <p class="micro">ALEJANDRO ORTEGA · BOGOTÁ · 4.7110°N 74.0721°W · iOS</p>
     </div>
   </div>
 </section>
 
 <!-- ============ Contacto ============ -->
 <section class="contacto" id="contacto">
-  <header class="sec-cab">
-    <span class="sec-n">§03</span>
-    <h2><span data-es="Contacto" data-en="Contact">Contacto</span> <em lang="ja">連絡</em></h2>
+  <div class="cielo" aria-hidden="true">
+    <i class="orbe orbe-d"></i><i class="orbe orbe-e"></i>
+    <svg class="nube n4" viewBox="0 0 320 130"><use href="#nube"/></svg>
+  </div>
+  <header class="seccion-cab">
+    <p class="seccion-n">03</p>
+    <h2 data-es="Hablemos" data-en="Let's talk">Hablemos</h2>
   </header>
   <a class="correo" href="mailto:calejo.ortega@gmail.com">calejo.ortega<wbr>@gmail.com <b>↗</b></a>
   <ul class="redes" role="list">
@@ -185,9 +219,9 @@
 </main>
 
 <footer class="pie">
-  <span>© <span id="anio">2026</span> ALEJANDRO ORTEGA</span>
-  <span lang="ja">ボゴタ、コロンビアより</span>
-  <span id="coord">—</span>
+  <span>© <span id="anio">2026</span> Alejandro Ortega</span>
+  <span>Bogotá, Colombia</span>
+  <span id="coord" aria-hidden="true">—</span>
 </footer>
 
 <script src="app.js"></script>
